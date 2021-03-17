@@ -14,6 +14,15 @@ public interface CommandError {
 	}
 	
 	/**
+	 * Custom error for bad usage
+	 * @return
+	 */
+	default boolean outOfBounds(CommandExecutable cmd) {
+		MessageSender.messageJSONMention(cmd.command, "unlink error");
+		return (false);
+	}
+	
+	/**
 	 * Custom error for unlink error
 	 * @return
 	 */

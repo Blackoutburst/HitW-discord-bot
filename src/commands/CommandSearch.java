@@ -44,6 +44,8 @@ public class CommandSearch extends CommandExecutable {
 		List<LeaderboardPlayer> lead = Utils.generatePlayerList(new File("leaderboard"));
 		lead = sort(type, lead);
 		
+		if (pos >= lead.size()) return (outOfBounds(this));
+		
 		LeaderboardPlayer player = lead.get(pos);
 		String data = Request.getPlayerStatsUUID(player.uuid);
 		
