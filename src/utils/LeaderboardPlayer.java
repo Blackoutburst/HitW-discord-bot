@@ -9,8 +9,9 @@ public class LeaderboardPlayer {
 	public int total;
 	public String name;
 	public String discord;
+	public String uuid;
 	
-	public LeaderboardPlayer(int wins, int walls, int qualification, int finals, int total, String name, String discord) {
+	public LeaderboardPlayer(int wins, int walls, int qualification, int finals, int total, String name, String discord, String uuid) {
 		this.wins = wins;
 		this.walls = walls;
 		this.qualification = qualification;
@@ -18,5 +19,6 @@ public class LeaderboardPlayer {
 		this.total = total;
 		this.name = name;
 		this.discord = discord;
+		this.uuid = uuid;
 	}
 }

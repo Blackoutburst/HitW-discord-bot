@@ -416,6 +416,7 @@ public class Utils {
 		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
 		String name = "";
 		String discord = "";
+		String uuid = "";
 		int wins = 0;
 		int rounds = 0;
 		int qualification = 0;
@@ -427,6 +428,7 @@ public class Utils {
 			File playerFolder = new File(index.getPath(),s);
 			String data = Utils.readJsonToString(playerFolder + "/data.json");
 			
+			uuid = Stats.getUUID(data);
 			name = Stats.getName(data);
 			wins = Stats.getWinsToInt(data);
 			rounds = Stats.getWallsToInt(data);
@@ -434,7 +436,7 @@ public class Utils {
 			finals = Stats.getFinalsToInt(data);
 			total = Stats.getTotalToInt(data);
 			try {discord = Stats.getDiscordId(data);} catch(Exception e) {}
-			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name, discord));
+			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name, discord, uuid));
 		}
 		return (lead);
 	}
