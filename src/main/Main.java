@@ -1,38 +1,24 @@
 package main;
 
-import java.io.File;
+import java.io.IOException;
 
 import javax.security.auth.login.LoginException;
 
 import core.Bot;
+import utils.Config;
 
 public class Main {
+
 	private static final String TOKEN = "X";
-	private static final String ACTIVITY = "!help";
-	public static final String bypassID = "X";
-	public static final String serverID = "X";
+	private static final String ACTIVITY = "Hole in the Wall";
+
+	public static final String BOT_ID = "X";
+	public static final String API = "X";
+	public static final String PREFIX = "!";
 	
-	/**
-	 *  Main
-	 * @param args
-	 * @author Blackoutburst
-	 */
-	public static void main(String[] args) {
-		Bot bot = new Bot();
-		
-		setup();
-		try {
-			bot.login(TOKEN, ACTIVITY);
-		} catch (LoginException | InterruptedException e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws LoginException, IOException {
+		new Config("config.json");
+		new Bot(TOKEN, ACTIVITY);
 	}
-	
-	private static void setup() {
-		File f = new File("linked player");
-		
-		if (!f.exists()) {
-			f.mkdir();
-		}
-	}
+
 }
