@@ -52,7 +52,7 @@ public class CommandStats extends CommandExecutable {
 		MessageSender.sendFile(command, "stats.png");
 
 		// refuse to add a new player if win count is insignificant
-		if(Integer.valueOf(API.getWins(data)) > 25) {
+		if(Integer.valueOf(API.getWins(data)) >= 25) {
 			Utils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);
