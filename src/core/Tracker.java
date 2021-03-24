@@ -39,32 +39,34 @@ public class Tracker {
 			File tmpFile = new File(fileLocation);
 			if(tmpFile.exists()) {	
 				String localData = Utils.readJsonToString(fileLocation);
-			String discordid = Stats.getDiscordId(localData);
-			
-			
-			String uuid = Stats.getUUID(localData);
-			int oldQ = 0;
-			int newQ = 0;
-			int oldF = 0;
-			int newF = 0;
-			
-			if(!Utils.isInsideTheServer(discordid)) Utils.unlinkMember(uuid);
-			if(!Utils.isOnline(discordid) && !forced) continue;
-			
-			data = Request.getPlayerStatsUUID(uuid);
-			if (data == null) continue;
-			if (API.getPlayer(data) == null) continue;
-			
-			oldQ = Stats.getQualificationToInt(localData);
-			newQ = API.getQualificationToInt(data);
-			oldF = Stats.getFinalsToInt(localData);
-			newF = API.getFinalsToInt(data);
-			
-			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
-			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
-			Utils.updateFile(data, localData, uuid, "linked player");
-			Utils.updateFile(data, localData, uuid, "leaderboard");
-			delay(750);
+				String discordid = Stats.getDiscordId(localData);
+
+
+				String uuid = Stats.getUUID(localData);
+				int oldQ = 0;
+				int newQ = 0;
+				int oldF = 0;
+				int newF = 0;
+				
+				if(!Utils.isInsideTheServer(discordid)) Utils.unlinkMember(uuid);
+				if(!Utils.isOnline(discordid) && !forced) continue;
+				
+				data = Request.getPlayerStatsUUID(uuid);
+				if (data == null) continue;
+				if (API.getPlayer(data) == null) continue;
+
+				oldQ = Stats.getQualificationToInt(localData);
+				newQ = API.getQualificationToInt(data);
+				oldF = Stats.getFinalsToInt(localData);
+				newF = API.getFinalsToInt(data);
+
+				if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
+				if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
+				Utils.updateFile(data, localData, uuid, "linked player");
+				Utils.updateFile(data, localData, uuid, "leaderboard");
+				// Wait 500ms before making more api requests to avoid rate limit
+				delay(500);
+			}
 		}
 	}
 	
