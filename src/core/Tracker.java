@@ -34,7 +34,11 @@ public class Tracker {
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(), s);
 			String data = "";
-			String localData = Utils.readJsonToString(playerFolder + "/data.json");
+			String fileLocation = playerFolder + "/data.json";
+			// make sure player data exists before attempting to read from it
+			File tmpFile = new File(fileLocation);
+			if(tmpFile.exists()) {	
+				String localData = Utils.readJsonToString(fileLocation);
 			String discordid = Stats.getDiscordId(localData);
 			
 			
