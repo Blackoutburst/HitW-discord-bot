@@ -53,9 +53,6 @@ public class Stats {
 	 */
 	public static String getSubTitle(String player) {
 		String uuid = Request.getPlayerUUID(player);
-		File index = new File("linked player");
-		String[] entries  = index.list();
-		
 		JSONObject obj = Utils.readJson("linked player/" + uuid + "/data.json");
 		return (obj.getString("subtitle",""));
 	}
