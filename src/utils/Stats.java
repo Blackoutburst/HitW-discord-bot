@@ -1,13 +1,10 @@
 package utils;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import org.json.JSONObject;
-
-import core.Request;
 
 public class Stats {
 	
@@ -51,10 +48,9 @@ public class Stats {
 	 * @param player
 	 * @return
 	 */
-	public static String getSubTitle(String player) {
-		String uuid = Request.getPlayerUUID(player);
+	public static String getSubTitle(String uuid) {
 		JSONObject obj = Utils.readJson("linked player/" + uuid + "/data.json");
-		return (obj.getString("subtitle",""));
+		return (obj.getString("subtitle"));
 	}
 	
 	/**

@@ -60,8 +60,8 @@ public class CommandCompare extends CommandExecutable {
 		
 		Canvas image = new Canvas(600, 400);
 
-		setBackground(image);
-		setSubtitle(image);
+		setBackground(image, player1, player2);
+		setSubtitle(image, player1, player2);
 		setPlayer1(image, player1, player2);
 		setPlayer2(image, player2, player1);
 		image.save("compare.png");
@@ -73,13 +73,13 @@ public class CommandCompare extends CommandExecutable {
 	 * Set player subtitle
 	 * @param image
 	 */
-	private void setSubtitle(Canvas image) {
+	private void setSubtitle(Canvas image, String player1, String player2) {
 		if (command.getArgs().length == 1) {
-			image.drawStringLeft(Stats.getSubTitle(Utils.getIGNfromDiscord(command.getSender().getId())), 10, 70, 26, Color.white);
-			image.drawStringRight(Stats.getSubTitle(command.getArgs()[0]), 590, 70, 26, Color.white);
+			image.drawStringLeft(Stats.getSubTitle(API.getUUID(player1)), 10, 70, 26, Color.white);
+			image.drawStringRight(Stats.getSubTitle(API.getUUID(player2)), 590, 70, 26, Color.white);
 		} else {
-			image.drawStringLeft(Stats.getSubTitle(command.getArgs()[0]), 10, 70, 26, Color.white);
-			image.drawStringRight(Stats.getSubTitle(command.getArgs()[1]), 590, 70, 26, Color.white);
+			image.drawStringLeft(Stats.getSubTitle(API.getUUID(player1)), 10, 70, 26, Color.white);
+			image.drawStringRight(Stats.getSubTitle(API.getUUID(player2)), 590, 70, 26, Color.white);
 		}
 	}
 	
@@ -87,20 +87,20 @@ public class CommandCompare extends CommandExecutable {
 	 * Set canvas background
 	 * @param image
 	 */
-	private void setBackground(Canvas image) {
+	private void setBackground(Canvas image, String player1, String player2) {
 		Canvas half = new Canvas(300, 400);
 		
 		if (command.getArgs().length == 1) {
-			half.drawImage(Utils.getCustomBackground(Utils.getIGNfromDiscord(command.getSender().getId())), 0, 0, 600, 400);
+			half.drawImage(Utils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
 			half.save("half.png");
 			
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
+			image.drawCustomBackground(Utils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
 			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		} else {
-			half.drawImage(Utils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
+			half.drawImage(Utils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
 			half.save("half.png");
 			
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[1]), 0, 0, 600, 400);
+			image.drawCustomBackground(Utils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
 			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		}
 	}

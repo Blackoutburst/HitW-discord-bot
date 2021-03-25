@@ -51,8 +51,8 @@ public class CommandSearch extends CommandExecutable {
 		
 		Canvas image = new Canvas(600, 400);
 		
-		image.drawCustomBackground(Utils.getCustomBackground(player.name), 0, 0, 600, 400);
-		image.drawStringCenter(Stats.getSubTitle(player.name), 300, 70, 26, Color.white);
+		image.drawCustomBackground(Utils.getCustomBackground(player.uuid), 0, 0, 600, 400);
+		image.drawStringCenter(Stats.getSubTitle(player.uuid), 300, 70, 26, Color.white);
 	
 		createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
