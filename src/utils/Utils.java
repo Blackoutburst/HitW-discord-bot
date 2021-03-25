@@ -62,17 +62,9 @@ public class Utils {
 	 */
 	public static boolean isLinkedIGN(String player) {
 		String uuid = Request.getPlayerUUID(player);
-		File index = new File("linked player");
-		String[] entries  = index.list();
-		
-		for (String s : entries) {
-			File playerFolder = new File(index.getPath(), s);
-			
-			if (playerFolder.getName().equals(uuid)) {
-				return (true);
-			}
-		}
-		return (false);
+		String playerFolder = "linked player/" + uuid;
+
+		return new File(playerFolder).exists();
 	}
 	
 	/**
@@ -163,17 +155,12 @@ public class Utils {
 	 */
 	public static String getCustomBackground(String player) {
 		String uuid = Request.getPlayerUUID(player);
-		File index = new File("linked player");
-		String[] entries  = index.list();
-		
-		for (String s : entries) {
-			File playerFolder = new File(index.getPath(), s);
-			
-			if (playerFolder.getName().equals(uuid) &&
-				new File(playerFolder + "/background.png").exists()) {
-				return (playerFolder + "/background.png");
-			}
+		String playerFolder = "linked player/" + uuid;
+
+		if(new File(playerFolder + "/background.png").exists()) {
+			return (playerFolder + "/background.png");
 		}
+
 		return ("res/background.png");
 	}
 	
