@@ -56,15 +56,8 @@ public class Stats {
 		File index = new File("linked player");
 		String[] entries  = index.list();
 		
-		for (String s : entries) {
-			File playerFolder = new File(index.getPath(), s);
-			
-			if (playerFolder.getName().equals(uuid)) {
-				JSONObject obj = Utils.readJson("linked player/" + playerFolder.getName() + "/data.json");
-				return (obj.getString("subtitle"));
-			}
-		}
-		return ("");
+		JSONObject obj = Utils.readJson("linked player/" + uuid + "/data.json");
+		return (obj.getString("subtitle",""));
 	}
 	
 	/**
