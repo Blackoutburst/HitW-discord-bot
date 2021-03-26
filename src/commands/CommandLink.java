@@ -29,9 +29,9 @@ public class CommandLink extends CommandExecutable {
 		int discord = 0;
 		int ign = 1;
 		
-		try {
-			Long.valueOf(command.getArgs()[0]);
-		} catch(Exception e) {
+		// Check if arg 1 is the same size as a discord
+		// uuid which is too long for a minecraft ign
+		if(command.getArgs()[0].length() == 18) {
 			discord = 1;
 			ign = 0;
 		}
@@ -47,7 +47,7 @@ public class CommandLink extends CommandExecutable {
 		if (data == null) return (unknownPlayer(this, command.getArgs()[ign]));
 		if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[ign]));
 		
-		generateFiles(data, ign);
+		generateFiles(data, ign, discord);
 		setRole(data, discord);
 		
 		MessageSender.messageJSON(command, "link");
@@ -71,7 +71,7 @@ public class CommandLink extends CommandExecutable {
 	 * Generate new user files
 	 * @param data
 	 */
-	private void generateFiles(String data, int ign) {
+	private void generateFiles(String data, int ign, int discord) {
 		String uuid = Request.getPlayerUUID(command.getArgs()[ign]);
 		JSONObject obj = new JSONObject();
 		new File("linked player/" + uuid).mkdir();
@@ -82,7 +82,7 @@ public class CommandLink extends CommandExecutable {
 		obj.put("walls", API.getWalls(data));
 		obj.put("qualification", API.getQualification(data));
 		obj.put("finals", API.getFinals(data));
-		obj.put("discordid", command.getArgs()[0]);
+		obj.put("discordid", command.getArgs()[discord]);
 		obj.put("uuid", uuid);
 		
 		try {
