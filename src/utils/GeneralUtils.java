@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import java.awt.Color;
+
 import comparators.PlayerComparatorF;
 import comparators.PlayerComparatorQ;
 import comparators.PlayerComparatorRounds;
@@ -344,7 +346,8 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		return " (#"+ getLBPosToInt(user, type) + ")";
+		int pos = getLBPosToInt(user, type) + 1;
+		return " (#"+ pos + ")";
 	}
 
 	/**
@@ -378,5 +381,32 @@ public class GeneralUtils {
 			lead.add(new LeaderboardPlayer(data));
 		}
 		return (lead);
+	}
+
+	/**
+	 * Create stats image
+	 * @param image
+	 * @param data
+	 */
+	public static void createImage(Canvas image, String data) {
+		image.drawImage("res/win.png", 100, 105, 24, 24);
+		image.drawImage("res/wall.png", 100, 155, 24, 24);
+		image.drawImage("res/q.png", 100, 205, 24, 24);
+		image.drawImage("res/f.png", 100, 255, 24, 24);
+		image.drawImage("res/total.png", 100, 305, 24, 24);
+		
+		
+		if (API.getName(data).equals("Blackoutburst")) {
+			image.drawImage("res/blackout.png", 200, 10, 200, 53);
+		} else {
+			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
+		}
+		
+		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
+		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
+		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
+		image.drawStringLeft("Best final score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
+		image.drawStringLeft("Q/F total: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
+		image.save("stats.png");
 	}
 }
