@@ -41,18 +41,17 @@ public class CommandStats extends CommandExecutable {
 		Canvas image = new Canvas(600, 400);
 		
 		if (command.getArgs().length == 0) {
-			image.drawCustomBackground(GeneralUtils.getCustomBackground(GeneralUtils.getIGNfromDiscord(command.getSender().getId())), 0, 0, 600, 400);
-			image.drawStringCenter(Stats.getSubTitle(GeneralUtils.getIGNfromDiscord(command.getSender().getId())), 300, 70, 26, Color.white);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(uuid), 0, 0, 600, 400);
+			image.drawStringCenter(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
 		} else {
-			image.drawCustomBackground(GeneralUtils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
-			image.drawStringCenter(Stats.getSubTitle(command.getArgs()[0]), 300, 70, 26, Color.white);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(uuid), 0, 0, 600, 400);
+			image.drawStringCenter(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
 		}
 		
 		createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
 
-		// refuse to add a new player if win count is insignificant
-		if(Integer.valueOf(API.getWins(data)) > 25) {
+		if(Integer.valueOf(API.getWinsToInt(data)) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);

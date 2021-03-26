@@ -145,8 +145,7 @@ public class GeneralUtils {
 	 * @param player
 	 * @return
 	 */
-	public static String getCustomBackground(String player) {
-		String uuid = Request.getPlayerUUID(player);
+	public static String getCustomBackground(String uuid) {
 		String playerFolder = "linked player/" + uuid;
 
 		if(new File(playerFolder + "/background.png").exists()) {
