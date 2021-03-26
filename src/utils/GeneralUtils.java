@@ -25,36 +25,28 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
-public class Utils {
-	
+public class GeneralUtils {
+
 	/**
 	 * Check if member is staff
 	 * @param member
 	 * @return
 	 */
 	public static boolean isStaff(Member member) {
-		for (Role r : member.getRoles()) {
-			if (r.getId().equals(Config.getRoleId("Staff"))) {
-				return (true);
-			}
-		}
-		return (member.hasPermission(Permission.ADMINISTRATOR));
+		Role staffRole = Bot.server.getRoleById(Config.getRoleId("Staff"));
+		List<Role> memberRoles = member.getRoles();
+		return (memberRoles.contains(staffRole) || member.hasPermission(Permission.ADMINISTRATOR));
 	}
-	
+
 	/**
 	 * Remove useless space in string
 	 * @param str
 	 * @return
 	 */
 	public static String removeDuplicateSpace(String str) {
-		String value = str;
-		
-		while(value.contains("  ")) {
-			value = value.replace("  ", " ");
-		}
-		return (value);
+		return str.replaceAll("\\s+", " ");
 	}
-	
+
 	/**
 	 * Check if the player is linked
 	 * @param player
@@ -66,7 +58,7 @@ public class Utils {
 
 		return new File(playerFolder).exists();
 	}
-	
+
 	/**
 	 * Check if the player is linked
 	 * @param player
@@ -75,19 +67,19 @@ public class Utils {
 	public static boolean isLinkedDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
-		
+
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
-			
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
+
 			if (obj.getString("discordid").equals(discordid)) {
 				return (true);
 			}
-			
+
 		}
 		return (false);
 	}
-	
+
 	/**
 	 * Get player uuid from is discord id
 	 * @param player
@@ -96,18 +88,18 @@ public class Utils {
 	public static String getUUIDfromDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
-		
+
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
-			
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
+
 			if (obj.getString("discordid").equals(discordid)) {
 				return (obj.getString("uuid"));
 			}
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Get user IGN from his discord account
 	 * @param player
@@ -116,18 +108,18 @@ public class Utils {
 	public static String getIGNfromDiscord(String discordid) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
-		
+
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
-			
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
+
 			if (obj.getString("discordid").equals(discordid)) {
 				return (obj.getString("name"));
 			}
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Get user discord id from is IGN
 	 * @param player
@@ -136,18 +128,18 @@ public class Utils {
 	public static String getDiscordfromIGN(String ign) {
 		File index = new File("linked player");
 		String[] entries  = index.list();
-		
+
 		for (String s : entries) {
 			File playerFolder = new File(index.getPath(), s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
-			
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
+
 			if (obj.getString("name").equalsIgnoreCase(ign)) {
 				return (obj.getString("discordid"));
 			}
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Get player background path
 	 * @param player
@@ -163,7 +155,7 @@ public class Utils {
 
 		return ("res/background.png");
 	}
-	
+
 	/**
 	 * Create an new JSON object from a json file
 	 * @param file
@@ -174,7 +166,7 @@ public class Utils {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String json = "";
 			String line = "";
-			
+
 			while ((line = reader.readLine()) != null) {
 				json += line;
 			}
@@ -185,7 +177,7 @@ public class Utils {
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Create an new string from a json file
 	 * @param file
@@ -196,7 +188,7 @@ public class Utils {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String json = "";
 			String line = "";
-			
+
 			while ((line = reader.readLine()) != null) {
 				json += line;
 			}
@@ -207,7 +199,7 @@ public class Utils {
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Add a player to the leader board
 	 * @param uuid
@@ -217,50 +209,47 @@ public class Utils {
 		if (uuid.equals("9c05f51a1d644dc4b2ad3f4cff85a64b")) return;
 		if (!new File("leaderboard/" + uuid).exists()) {
 			new File("leaderboard/" + uuid).mkdir();
-			JSONObject obj = new JSONObject();
-			
-			obj.put("name", API.getName(data));
-			obj.put("subtitle", "");
-			obj.put("wins", API.getWins(data));
-			obj.put("walls", API.getWalls(data));
-			obj.put("qualification", API.getQualification(data));
-			obj.put("finals", API.getFinals(data));
-			obj.put("uuid", uuid);
-			
+			JSONObject obj = new JSONObject()
+				.put("name", API.getName(data))
+				.put("wins", API.getWins(data))
+				.put("subtitle", "")
+				.put("walls", API.getWalls(data))
+				.put("qualification", API.getQualification(data))
+				.put("finals", API.getFinals(data))
+				.put("uuid", uuid);
+
 			try {
 				PrintWriter writer = new PrintWriter("leaderboard/" + uuid + "/data.json");
 				writer.write(obj.toString(4));
-				writer.close();		
+				writer.close();
 				MessageSender.messageJSON(command, "leaderboard add");
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	/**
 	 * Get gender prefix from roles
 	 * @param discordid
 	 * @return
 	 */
 	public static String getGenderPrefix(String discordid) {
-		boolean his = false;
-		boolean her = false;
-		boolean their = false;
-		
-		for (Role r : Bot.server.getMemberById(discordid).getRoles()) {
-			if (r.getId().equals(Config.getRoleId("She/Her"))) her = true;
-			if (r.getId().equals(Config.getRoleId("He/Him"))) his = true;
-			if (r.getId().equals(Config.getRoleId("They/Them"))) their = true;
-		}
-		
-		if (their) return ("their");
-		if (his && her) return ("their");
-		if (his) return ("his");
-		if (her) return ("her");
+		Role hisRole = Bot.server.getRoleById(Config.getRoleId("He/Him"));
+		Role herRole = Bot.server.getRoleById(Config.getRoleId("She/Her"));
+		Role theirRole = Bot.server.getRoleById(Config.getRoleId("They/Them"));
+
+		List<Role> memberRoles = Bot.server.getMemberById(discordid).getRoles();
+
+		boolean his = memberRoles.contains(hisRole);
+		boolean her = memberRoles.contains(herRole);
+		boolean their = memberRoles.contains(theirRole);
+
+		if (his && !her) return ("his");
+		if (her && !his) return ("her");
 		return ("their");
 	}
-	
+
 	/**
 	 * Check is the user in inside the discord server
 	 * @param discordid
@@ -268,10 +257,10 @@ public class Utils {
 	 */
 	public static boolean isInsideTheServer(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
-		
+
 		return (member != null);
 	}
-	
+
 	/**
 	 * Check if the user in online
 	 * @param discordid
@@ -279,12 +268,10 @@ public class Utils {
 	 */
 	public static boolean isOnline(String discordid) {
 		Member member = Bot.server.getMemberById(discordid);
-		
-		if (member == null) return (false);
-		if (member.getOnlineStatus() == OnlineStatus.OFFLINE || member.getOnlineStatus() == OnlineStatus.IDLE) return (false);
-		return (true);
+
+		return (member != null && (member.getOnlineStatus() != OnlineStatus.OFFLINE || member.getOnlineStatus() != OnlineStatus.IDLE));
 	}
-	
+
 	/**
 	 * Remove a member from the database
 	 * @param uuid
@@ -292,15 +279,15 @@ public class Utils {
 	public static void unlinkMember(String uuid) {
 		File index = new File("linked player/" + uuid);
 		String[] entries = index.list();
-		
+
 		for(String s : entries) {
 			File file = new File(index.getPath(), s);
-			
+
 			file.delete();
 		}
 		index.delete();
 	}
-	
+
 	/**
 	 * Update player data file
 	 * @param data
@@ -308,13 +295,12 @@ public class Utils {
 	 * @param folder
 	 */
 	public static void updateFile(String data, String localData, String uuid, String folder) {
-		JSONObject obj = new JSONObject(localData);
-				
-		obj.put("wins", API.getWinsToInt(data));
-		obj.put("walls", API.getWallsToInt(data));
-		obj.put("qualification", API.getQualificationToInt(data));
-		obj.put("finals", API.getFinalsToInt(data));
-		obj.put("name", API.getName(data));
+		JSONObject obj = new JSONObject(localData)
+			.put("wins", API.getWinsToInt(data))
+			.put("walls", API.getWallsToInt(data))
+			.put("qualification", API.getQualificationToInt(data))
+			.put("finals", API.getFinalsToInt(data))
+			.put("name", API.getName(data));
 
 		try {
 			PrintWriter writer = new PrintWriter(folder + "/" + uuid + "/data.json");
@@ -324,7 +310,7 @@ public class Utils {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sort leader board
 	 * @param user
@@ -341,33 +327,16 @@ public class Utils {
 		}
 		return (lead);
 	}
-	
+
 	/**
 	 * Get player position in the leader board
 	 * @param user
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
-		
-		switch (type) {
-			case 'w' : Collections.sort(lead, new PlayerComparatorWins()); break;
-			case 'r' : Collections.sort(lead, new PlayerComparatorRounds()); break;
-			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
-			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
-			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
-			default : Collections.sort(lead, new PlayerComparatorWins()); break;
-		}
-		int i = 0;
-		for (LeaderboardPlayer p : lead) {
-			i++; 
-			if (p.name.equals(user)) {
-				return (" (#"+String.valueOf(i)+")");
-			}
-		}
-		return ("");
+		return " (#"+ getLBPosToInt(user, type) + ")";
 	}
-	
+
 	/**
 	 * Get player position in the leader board
 	 * @param user
@@ -375,25 +344,14 @@ public class Utils {
 	 */
 	public static int getLBPosToInt(String user, char type) {
 		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
-		
-		switch (type) {
-			case 'w' : Collections.sort(lead, new PlayerComparatorWins()); break;
-			case 'r' : Collections.sort(lead, new PlayerComparatorRounds()); break;
-			case 'q' : Collections.sort(lead, new PlayerComparatorQ()); break;
-			case 'f' : Collections.sort(lead, new PlayerComparatorF()); break;
-			case 't' : Collections.sort(lead, new PlayerComparatorTotal()); break;
-			default : Collections.sort(lead, new PlayerComparatorWins()); break;
-		}
-		int i = 0;
-		for (LeaderboardPlayer p : lead) {
-			i++; 
-			if (p.name.equals(user)) {
-				return (i);
-			}
+		lead = sortLB(lead, type);
+
+		for(int i = 0; i < lead.size(); i++) {
+			if(lead.get(i).name.equals(user)) return i;
 		}
 		return (10000);
 	}
-	
+
 	/**
 	 * Generate list of player from specified data folder
 	 * @param index
@@ -401,29 +359,13 @@ public class Utils {
 	 */
 	public static List<LeaderboardPlayer> generatePlayerList(File index) {
 		List<LeaderboardPlayer> lead = new ArrayList<LeaderboardPlayer>();
-		String name = "";
-		String discord = "";
-		String uuid = "";
-		int wins = 0;
-		int rounds = 0;
-		int qualification = 0;
-		int finals = 0;
-		int total = 0;
-		
+
 		String[]entries = index.list();
 		for(String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
-			String data = Utils.readJsonToString(playerFolder + "/data.json");
-			
-			uuid = Stats.getUUID(data);
-			name = Stats.getName(data);
-			wins = Stats.getWinsToInt(data);
-			rounds = Stats.getWallsToInt(data);
-			qualification = Stats.getQualificationToInt(data);
-			finals = Stats.getFinalsToInt(data);
-			total = Stats.getTotalToInt(data);
-			try {discord = Stats.getDiscordId(data);} catch(Exception e) {}
-			lead.add(new LeaderboardPlayer(wins, rounds, qualification, finals, total, name, discord, uuid));
+			String data = GeneralUtils.readJsonToString(playerFolder + "/data.json");
+
+			lead.add(new LeaderboardPlayer(data));
 		}
 		return (lead);
 	}

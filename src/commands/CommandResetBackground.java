@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import core.Command;
 import core.CommandExecutable;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandResetBackground extends CommandExecutable {
 
@@ -22,7 +22,7 @@ public class CommandResetBackground extends CommandExecutable {
 		
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
 			
 			if (obj.getString("discordid").equals(command.getSender().getId()) &&
 				new File(playerFolder + "/background.png").exists()) {

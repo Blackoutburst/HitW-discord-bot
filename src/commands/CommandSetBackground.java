@@ -8,7 +8,7 @@ import core.Command;
 import core.CommandExecutable;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandSetBackground extends CommandExecutable {
 
@@ -41,7 +41,7 @@ public class CommandSetBackground extends CommandExecutable {
 		
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
 			
 			if (obj.getString("discordid").equals(discordid)) {
 				file.downloadToFile(new File(playerFolder + "/background.png"));

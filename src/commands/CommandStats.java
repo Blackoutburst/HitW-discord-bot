@@ -9,7 +9,7 @@ import utils.API;
 import utils.Canvas;
 import utils.MessageSender;
 import utils.Stats;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandStats extends CommandExecutable {
 
@@ -24,9 +24,9 @@ public class CommandStats extends CommandExecutable {
 		String uuid = null;
 		
 		if (command.getArgs().length == 0) {
-			if (Utils.isLinkedDiscord(command.getSender().getId())) {
-				data = Request.getPlayerStatsUUID(Utils.getUUIDfromDiscord(command.getSender().getId()));
-				uuid = Utils.getUUIDfromDiscord(command.getSender().getId());
+			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
+				data = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(command.getSender().getId()));
+				uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
 			} else {
 				return (badUsage(this));
 			}
@@ -41,10 +41,10 @@ public class CommandStats extends CommandExecutable {
 		Canvas image = new Canvas(600, 400);
 		
 		if (command.getArgs().length == 0) {
-			image.drawCustomBackground(Utils.getCustomBackground(Utils.getIGNfromDiscord(command.getSender().getId())), 0, 0, 600, 400);
-			image.drawStringCenter(Stats.getSubTitle(Utils.getIGNfromDiscord(command.getSender().getId())), 300, 70, 26, Color.white);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(GeneralUtils.getIGNfromDiscord(command.getSender().getId())), 0, 0, 600, 400);
+			image.drawStringCenter(Stats.getSubTitle(GeneralUtils.getIGNfromDiscord(command.getSender().getId())), 300, 70, 26, Color.white);
 		} else {
-			image.drawCustomBackground(Utils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(command.getArgs()[0]), 0, 0, 600, 400);
 			image.drawStringCenter(Stats.getSubTitle(command.getArgs()[0]), 300, 70, 26, Color.white);
 		}
 		
@@ -53,7 +53,7 @@ public class CommandStats extends CommandExecutable {
 
 		// refuse to add a new player if win count is insignificant
 		if(Integer.valueOf(API.getWins(data)) > 25) {
-			Utils.addToLeaderBoard(uuid, data, command);
+			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);
 	}
@@ -77,11 +77,11 @@ public class CommandStats extends CommandExecutable {
 			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
 		}
 		
-		image.drawStringLeft("Wins: " + API.getWins(data) + Utils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + Utils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
-		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + Utils.getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
-		image.drawStringLeft("Best final score: " + API.getFinals(data) + Utils.getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
-		image.drawStringLeft("Q/F total: " + API.getTotal(data) + Utils.getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
+		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
+		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
+		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
+		image.drawStringLeft("Best final score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
+		image.drawStringLeft("Q/F total: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
 		image.save("stats.png");
 	}
 }

@@ -21,4 +21,15 @@ public class LeaderboardPlayer {
 		this.discord = discord;
 		this.uuid = uuid;
 	}
+
+	public LeaderboardPlayer(String data) {
+		this.uuid = Stats.getUUID(data);
+		this.name = Stats.getName(data);
+		this.wins = Stats.getWinsToInt(data);
+		this.walls = Stats.getWallsToInt(data);
+		this.qualification = Stats.getQualificationToInt(data);
+		this.finals = Stats.getFinalsToInt(data);
+		this.total = Stats.getTotalToInt(data);
+		try {this.discord = Stats.getDiscordId(data);} catch(Exception e) {}
+	}
 }

@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.Config;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class MessageReceived {
 	
@@ -59,7 +59,7 @@ public class MessageReceived {
 	 * @return
 	 */
 	private String getCommandName(String message) {
-		String str = Utils.removeDuplicateSpace(message);
+		String str = GeneralUtils.removeDuplicateSpace(message);
 		String[] strarr = str.split(" ");
 
 		return (strarr[0].substring(Main.PREFIX.length()).toLowerCase());
@@ -71,7 +71,7 @@ public class MessageReceived {
 	 * @return
 	 */
 	private String[] getArgs(String message) {
-		String str = Utils.removeDuplicateSpace(message);
+		String str = GeneralUtils.removeDuplicateSpace(message);
 		String[] strarr = str.split(" ");
 		
 		return (Arrays.copyOfRange(strarr, 1, strarr.length));

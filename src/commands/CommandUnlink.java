@@ -4,7 +4,7 @@ import core.Command;
 import core.CommandExecutable;
 import core.Request;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandUnlink extends CommandExecutable {
 
@@ -16,11 +16,11 @@ public class CommandUnlink extends CommandExecutable {
 	protected boolean execute() {
 		if (command.getArgs().length == 0) return (badUsage(this));
 		
-		String uuid = Utils.getUUIDfromDiscord(command.getArgs()[0]);
+		String uuid = GeneralUtils.getUUIDfromDiscord(command.getArgs()[0]);
 		if (uuid == null) uuid = Request.getPlayerUUID(command.getArgs()[0]);
 		if (uuid == null) return (unlinkError(this));
 		
-		Utils.unlinkMember(uuid);
+		GeneralUtils.unlinkMember(uuid);
 		
 		MessageSender.messageJSON(command, "unlink");
 		return (true);

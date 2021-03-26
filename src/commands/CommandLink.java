@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import utils.API;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandLink extends CommandExecutable {
 
@@ -92,6 +92,6 @@ public class CommandLink extends CommandExecutable {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		Utils.addToLeaderBoard(uuid, data, command);
+		GeneralUtils.addToLeaderBoard(uuid, data, command);
 	}
 }
