@@ -3,7 +3,11 @@ package utils;
 import java.util.Collections;
 import java.util.List;
 
-import comparators.*;
+import comparators.PlayerComparatorF;
+import comparators.PlayerComparatorQ;
+import comparators.PlayerComparatorRounds;
+import comparators.PlayerComparatorTotal;
+import comparators.PlayerComparatorWins;
 
 public class Leaderboard {
 	
