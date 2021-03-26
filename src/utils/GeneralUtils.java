@@ -244,8 +244,8 @@ public class GeneralUtils {
 		boolean her = memberRoles.contains(herRole);
 		boolean their = memberRoles.contains(theirRole);
 
-		if (his && !her) return ("his");
-		if (her && !his) return ("her");
+		if (his && !her && !their) return ("his");
+		if (her && !his && !their) return ("her");
 		return ("their");
 	}
 
