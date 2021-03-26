@@ -71,6 +71,18 @@ public class MessageSender {
 		str += Config.getMessage("wrong file type").replace("%format%", message);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
+
+	/**
+	 * Send wrong file size error message
+	 * @param channel
+	 * @param message
+	 */
+	public static void fileSizeOverLimit(Command command, String message) {
+		String str = command.getSender().getAsMention() + ",\n";
+		
+		str += Config.getMessage("large image").replace("%size%", message);
+		command.getEvent().getChannel().sendMessage(str).complete();
+	}
 	
 	/**
 	 * Send unknown player message

@@ -21,6 +21,8 @@ public class CommandSetBackground extends CommandExecutable {
 		if (command.getEvent().getMessage().getAttachments().size() == 0) return (missingFile(this));
 		
 		Attachment file = command.getEvent().getMessage().getAttachments().get(0);
+
+		if(file.getSize() > 8388608) return (fileSizeOverLimit(this, "8MiB"));
 		
 		if (file.getFileExtension().equals("png") || file.getFileExtension().equals("jpg") || file.getFileExtension().equals("jpeg")) {
 			updateBackground(command.getSender().getId(), file);

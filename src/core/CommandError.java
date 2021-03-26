@@ -78,6 +78,16 @@ public interface CommandError {
 		MessageSender.wrongFileFormat(cmd.command, format);
 		return (false);
 	}
+
+	/**
+	 * Custom error for too large attachments
+	 * @param format
+	 * @return
+	 */
+	default boolean fileSizeOverLimit(CommandExecutable cmd, String format) {
+		MessageSender.fileSizeOverLimit(cmd.command, format);
+		return (false);
+	}
 	
 	/**
 	 * Custom error for unknown member
