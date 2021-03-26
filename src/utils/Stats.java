@@ -49,6 +49,10 @@ public class Stats {
 	 * @return
 	 */
 	public static String getSubTitle(String uuid) {
+		if (!GeneralUtils.isLinkedUUID(uuid)) {
+			return ("");
+		}
+
 		JSONObject obj = GeneralUtils.readJson("linked player/" + uuid + "/data.json");
 		return (obj.getString("subtitle"));
 	}
