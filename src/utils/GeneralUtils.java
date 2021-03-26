@@ -69,7 +69,7 @@ public class GeneralUtils {
 
 		return new File(playerFolder).exists();
 	}
-
+	
 	/**
 	 * Check if the player is linked
 	 * @param player
