@@ -126,7 +126,7 @@ public class MessageSender {
 	 */
 	public static void pbMessage(String data, String discordid, String uuid, char type) {
 		EmbedBuilder embed = new EmbedBuilder();
-		String localData = Utils.readJsonToString("linked player/" + uuid + "/data.json");
+		String localData = GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json");
 		String url = "https://www.mc-heads.net/body/" + uuid;
 		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
 		String name = Bot.server.getMemberById(discordid).getEffectiveName();
@@ -140,13 +140,13 @@ public class MessageSender {
 		embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 		
 		if (type == 'q') {
-			embed.setTitle(API.getName(data)+" Improved " + Utils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
+			embed.setTitle(API.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
 			embed.addField("New PB", "**" + newQ + "**",true);
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
 		} else {
-			embed.setTitle(API.getName(data) + " Improved " + Utils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
+			embed.setTitle(API.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
 			embed.addField("New PB", "**" + newF + "**",true);

@@ -1,7 +1,7 @@
 package core;
 
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public abstract class CommandExecutable implements CommandError {
 	
@@ -46,6 +46,6 @@ public abstract class CommandExecutable implements CommandError {
 	 * @return
 	 */
 	protected boolean senderIsStaff() {
-		return (Utils.isStaff(command.getSender()));
+		return (GeneralUtils.isStaff(command.getSender()));
 	}
 }

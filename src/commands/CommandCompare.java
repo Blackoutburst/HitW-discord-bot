@@ -12,7 +12,7 @@ import utils.API;
 import utils.Canvas;
 import utils.MessageSender;
 import utils.Stats;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandCompare extends CommandExecutable {
 	
@@ -36,8 +36,8 @@ public class CommandCompare extends CommandExecutable {
 		String player2 = null;
 		
 		if (command.getArgs().length == 1) {
-			if (Utils.isLinkedDiscord(command.getSender().getId())) {
-				player1 = Request.getPlayerStatsUUID(Utils.getUUIDfromDiscord(command.getSender().getId()));
+			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
+				player1 = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(command.getSender().getId()));
 				
 				player2 = Request.getPlayerStats(command.getArgs()[0]);
 				if (player2 == null) return (unknownPlayer(this, command.getArgs()[0]));
@@ -91,16 +91,16 @@ public class CommandCompare extends CommandExecutable {
 		Canvas half = new Canvas(300, 400);
 		
 		if (command.getArgs().length == 1) {
-			half.drawImage(Utils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
+			half.drawImage(GeneralUtils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
 			half.save("half.png");
 			
-			image.drawCustomBackground(Utils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
 			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		} else {
-			half.drawImage(Utils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
+			half.drawImage(GeneralUtils.getCustomBackground(API.getUUID(player1)), 0, 0, 600, 400);
 			half.save("half.png");
 			
-			image.drawCustomBackground(Utils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
+			image.drawCustomBackground(GeneralUtils.getCustomBackground(API.getUUID(player2)), 0, 0, 600, 400);
 			image.drawCustomBackground("half.png", 0, 0, 300, 400);
 		}
 	}

@@ -6,7 +6,7 @@ import utils.API;
 import utils.Config;
 import utils.MessageSender;
 import utils.Stats;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class DisplayPBOnMention {
 	
@@ -19,9 +19,9 @@ public class DisplayPBOnMention {
 		String data = null;
 		String localData = null;
 		
-		if (Utils.isLinkedDiscord(sender.getId())) {
-			data = Request.getPlayerStatsUUID(Utils.getUUIDfromDiscord(sender.getId()));
-			localData = Utils.readJsonToString("linked player/" + Utils.getUUIDfromDiscord(sender.getId()) + "/data.json");
+		if (GeneralUtils.isLinkedDiscord(sender.getId())) {
+			data = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(sender.getId()));
+			localData = GeneralUtils.readJsonToString("linked player/" + GeneralUtils.getUUIDfromDiscord(sender.getId()) + "/data.json");
 		} else {
 			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + Config.getMessage("not linked")).complete();
 			return;
@@ -47,10 +47,10 @@ public class DisplayPBOnMention {
 			return;
 		}
 		
-		if (newQ > oldQ) MessageSender.pbMessage(data, sender.getId(), Utils.getUUIDfromDiscord(sender.getId()), 'q');
-		if (newF > oldF) MessageSender.pbMessage(data, sender.getId(), Utils.getUUIDfromDiscord(sender.getId()), 'f');
-		Utils.updateFile(data, localData, Utils.getUUIDfromDiscord(sender.getId()), "linked player");
-		Utils.updateFile(data, localData, Utils.getUUIDfromDiscord(sender.getId()), "leaderboard");
+		if (newQ > oldQ) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'q');
+		if (newF > oldF) MessageSender.pbMessage(data, sender.getId(), GeneralUtils.getUUIDfromDiscord(sender.getId()), 'f');
+		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "linked player");
+		GeneralUtils.updateFile(data, localData, GeneralUtils.getUUIDfromDiscord(sender.getId()), "leaderboard");
 		
 	}
 	

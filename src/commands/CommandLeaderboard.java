@@ -18,7 +18,7 @@ import core.CommandExecutable;
 import utils.Canvas;
 import utils.LeaderboardPlayer;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandLeaderboard extends CommandExecutable {
 
@@ -42,7 +42,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		String fileName = discord ? "linked player" : "leaderboard";
 		File index = new File(fileName);
 		Canvas image = new Canvas(600, 400);
-		List<LeaderboardPlayer> lead = Utils.generatePlayerList(index);
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index);
 		
 		lead = sort(type, lead);
 		generateCanvas(image, type, page, lead);

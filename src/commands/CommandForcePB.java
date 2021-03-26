@@ -5,7 +5,7 @@ import core.CommandExecutable;
 import core.Request;
 import utils.API;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandForcePB extends CommandExecutable {
 
@@ -29,14 +29,14 @@ public class CommandForcePB extends CommandExecutable {
 		String data = Request.getPlayerStats(ign);
 		if (data == null) return (unknownPlayer(this, ign));
 		if (API.getPlayer(data) == null) return (neverJoined(this, ign));
-		if (!Utils.isLinkedIGN(ign)) return (notInDatabase(this));
+		if (!GeneralUtils.isLinkedIGN(ign)) return (notInDatabase(this));
 		
 		switch(type) {
-			case Q : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
-			case F : MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
+			case Q : MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
+			case F : MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
 			default :
-				MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
-				MessageSender.pbMessage(data, Utils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
+				MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
+				MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
 			break;
 		}
 		return (true);

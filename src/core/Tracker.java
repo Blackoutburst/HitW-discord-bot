@@ -5,7 +5,7 @@ import java.io.File;
 import utils.API;
 import utils.MessageSender;
 import utils.Stats;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class Tracker {
 	
@@ -40,7 +40,7 @@ public class Tracker {
 			File tmpFile = new File(fileLocation);
 			if(tmpFile.exists()) continue;
 
-			String localData = Utils.readJsonToString(fileLocation);
+			String localData = GeneralUtils.readJsonToString(fileLocation);
 			String discordid = Stats.getDiscordId(localData);
 
 			String uuid = Stats.getUUID(localData);
@@ -49,8 +49,8 @@ public class Tracker {
 			int oldF = 0;
 			int newF = 0;
 			
-			if(!Utils.isInsideTheServer(discordid)) Utils.unlinkMember(uuid);
-			if(!Utils.isOnline(discordid) && !forced) continue;
+			if(!GeneralUtils.isInsideTheServer(discordid)) GeneralUtils.unlinkMember(uuid);
+			if(!GeneralUtils.isOnline(discordid) && !forced) continue;
 
 			data = Request.getPlayerStatsUUID(uuid);
 			if (data == null) continue;
@@ -63,8 +63,8 @@ public class Tracker {
 
 			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
 			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
-			Utils.updateFile(data, localData, uuid, "linked player");
-			Utils.updateFile(data, localData, uuid, "leaderboard");
+			GeneralUtils.updateFile(data, localData, uuid, "linked player");
+			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 			// Wait 500ms before making more api requests to avoid rate limit
 			delay(500);
 		}

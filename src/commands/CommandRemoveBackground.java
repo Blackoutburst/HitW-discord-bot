@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import core.Command;
 import core.CommandExecutable;
 import utils.MessageSender;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class CommandRemoveBackground extends CommandExecutable {
 
@@ -24,7 +24,7 @@ public class CommandRemoveBackground extends CommandExecutable {
 		
 		for (String s: entries) {
 			File playerFolder = new File(index.getPath(),s);
-			JSONObject obj = Utils.readJson(playerFolder + "/data.json");
+			JSONObject obj = GeneralUtils.readJson(playerFolder + "/data.json");
 			
 			if (obj.getString("name").equalsIgnoreCase(command.getArgs()[0]) &&
 				new File(playerFolder + "/background.png").exists()) {

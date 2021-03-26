@@ -6,7 +6,7 @@ import java.util.List;
 import net.dv8tion.jda.api.entities.Member;
 import utils.API;
 import utils.LeaderboardPlayer;
-import utils.Utils;
+import utils.GeneralUtils;
 
 public class LeaderboardUpdater {
 	
@@ -30,17 +30,17 @@ public class LeaderboardUpdater {
 	 * User player leaderboard role
 	 */
 	private void updateLifeTimeRoles() {
-		List<LeaderboardPlayer> lead = Utils.generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
 	
 		for (LeaderboardPlayer player : lead) {
-			if(Utils.isLinkedIGN(player.name)) {
+			if(GeneralUtils.isLinkedIGN(player.name)) {
 				Member member = Bot.server.getMemberById(player.discord);
 				
 				new RolesManager().cleanLifeTimeRole(member);
-				if (Utils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
-				if (Utils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
-				if (Utils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
-				if (Utils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
+				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+				if (GeneralUtils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
 			}
 		}
 	}
@@ -56,12 +56,12 @@ public class LeaderboardUpdater {
 			File playerFolder = new File(index.getPath(), s);
 			String uuid = playerFolder.getName();
 			String data = Request.getPlayerStatsUUID(playerFolder.getName());
-			String localData = Utils.readJsonToString(playerFolder + "/data.json");
+			String localData = GeneralUtils.readJsonToString(playerFolder + "/data.json");
 			
 			if (data == null) continue;
 			if (API.getPlayer(data) == null) continue;
 			
-			Utils.updateFile(data, localData, uuid, "leaderboard");
+			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 			delay(60000);
 		}
 	}
