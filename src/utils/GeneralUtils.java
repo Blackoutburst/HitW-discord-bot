@@ -346,7 +346,8 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		return " (#"+ getLBPosToInt(user, type) + ")";
+		int pos = getLBPosToInt(user, type) + 1;
+		return " (#"+ pos + ")";
 	}
 
 	/**
