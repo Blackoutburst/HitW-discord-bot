@@ -56,8 +56,8 @@ public class Stats {
 		File index = new File("linked player");
 		String[] entries  = index.list();
 		
-		JSONObject obj = Utils.readJson("linked player/" + uuid + "/data.json");
-		return (obj.getString("subtitle",""));
+		JSONObject obj = GeneralUtils.readJson("linked player/" + uuid + "/data.json");
+		return obj.has("subtitle") ? obj.getString("subtitle") : "";
 	}
 	
 	/**
