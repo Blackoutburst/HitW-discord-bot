@@ -69,17 +69,6 @@ public class GeneralUtils {
 
 		return new File(playerFolder).exists();
 	}
-
-	/**
-	 * Check if the player is linked
-	 * @param uuid
-	 * @return
-	 */
-	public static boolean isLinkedUUID(String uuid) {
-		String playerFolder = "linked player/" + uuid;
-
-		return new File(playerFolder).exists();
-	}
 	
 	/**
 	 * Check if the player is linked
