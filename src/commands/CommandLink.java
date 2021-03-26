@@ -29,9 +29,9 @@ public class CommandLink extends CommandExecutable {
 		int discord = 0;
 		int ign = 1;
 		
-		try {
-			Long.valueOf(command.getArgs()[0]);
-		} catch(Exception e) {
+		// Check if arg 1 is the same size as a discord
+		// uuid which is too long for a minecraft ign
+		if(command.getArgs()[0].length() == 18) {
 			discord = 1;
 			ign = 0;
 		}
