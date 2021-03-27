@@ -347,7 +347,7 @@ public class GeneralUtils {
 	 */
 	public static String getLBPos(String user, char type) {
 		int pos = getLBPosToInt(user, type) + 1;
-		return " (#"+ pos + ")";
+		return (pos != 10001) ? " (#"+ pos + ")" : "";
 	}
 
 	/**
