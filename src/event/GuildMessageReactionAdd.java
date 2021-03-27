@@ -3,7 +3,7 @@ package event;
 import core.RoleAction;
 import core.RolesManager;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import utils.Config;
+import utils.ConfigManager;
 
 public class GuildMessageReactionAdd {
 	
@@ -13,10 +13,10 @@ public class GuildMessageReactionAdd {
 	 */
 	public void run(GuildMessageReactionAddEvent event) {
 		if (event.getMember().getUser().isBot()) return;
-		if (event.getMessageId().equals(Config.getString("tournamentMessage"))) {
+		if (event.getMessageId().equals(ConfigManager.getString("tournamentMessage"))) {
 			new RolesManager().setTournamentPlayer(RoleAction.ADD, event.getGuild(), event.getMember());
 		}
-		if (event.getMessageId().equals(Config.getString("genderMessage"))) {
+		if (event.getMessageId().equals(ConfigManager.getString("genderMessage"))) {
 			String roleName = getGender(event.getReactionEmote().toString());
 			
 			switch(event.getReactionEmote().toString()) {

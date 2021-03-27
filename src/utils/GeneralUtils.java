@@ -35,7 +35,7 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static boolean isStaff(Member member) {
-		Role staffRole = Bot.server.getRoleById(Config.getRoleId("Staff"));
+		Role staffRole = Bot.server.getRoleById(ConfigManager.getRoleId("Staff"));
 		List<Role> memberRoles = member.getRoles();
 		return (memberRoles.contains(staffRole) || member.hasPermission(Permission.ADMINISTRATOR));
 	}
@@ -247,9 +247,9 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getGenderPrefix(String discordid) {
-		Role hisRole = Bot.server.getRoleById(Config.getRoleId("He/Him"));
-		Role herRole = Bot.server.getRoleById(Config.getRoleId("She/Her"));
-		Role theirRole = Bot.server.getRoleById(Config.getRoleId("They/Them"));
+		Role hisRole = Bot.server.getRoleById(ConfigManager.getRoleId("He/Him"));
+		Role herRole = Bot.server.getRoleById(ConfigManager.getRoleId("She/Her"));
+		Role theirRole = Bot.server.getRoleById(ConfigManager.getRoleId("They/Them"));
 
 		List<Role> memberRoles = Bot.server.getMemberById(discordid).getRoles();
 

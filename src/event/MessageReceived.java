@@ -10,7 +10,7 @@ import main.Main;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import utils.Config;
+import utils.ConfigManager;
 import utils.GeneralUtils;
 
 public class MessageReceived {
@@ -41,7 +41,7 @@ public class MessageReceived {
 	 * @return
 	 */
 	private boolean WallyMention(MessageReceivedEvent event) {
-		if (event.getChannel().getId().equals(Config.getString("trackerChannel"))) {
+		if (event.getChannel().getId().equals(ConfigManager.getString("trackerChannel"))) {
 			List<Member> members = event.getMessage().getMentionedMembers();
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {

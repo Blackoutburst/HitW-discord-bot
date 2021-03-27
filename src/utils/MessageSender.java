@@ -16,7 +16,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void messageJSONMention(Command command, String message) {
-		command.getEvent().getChannel().sendMessage(command.getSender().getAsMention() + ",\n" + Config.getMessage(message)).complete();
+		command.getEvent().getChannel().sendMessage(command.getSender().getAsMention() + ",\n" + ConfigManager.getMessage(message)).complete();
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void messageJSON(Command command, String message) {
-		command.getEvent().getChannel().sendMessage(Config.getMessage(message)).complete();
+		command.getEvent().getChannel().sendMessage(ConfigManager.getMessage(message)).complete();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class MessageSender {
 	public static void badUsage(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("bad usage").replace("%command%", message);
+		str += ConfigManager.getMessage("bad usage").replace("%command%", message);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
@@ -68,7 +68,7 @@ public class MessageSender {
 	public static void wrongFileFormat(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("wrong file type").replace("%format%", message);
+		str += ConfigManager.getMessage("wrong file type").replace("%format%", message);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 
@@ -80,7 +80,7 @@ public class MessageSender {
 	public static void fileSizeOverLimit(Command command, String message) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("large image").replace("%size%", message);
+		str += ConfigManager.getMessage("large image").replace("%size%", message);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
@@ -92,7 +92,7 @@ public class MessageSender {
 	public static void unknownPlayer(Command command, String player) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("unknown player").replace("%player%", player);
+		str += ConfigManager.getMessage("unknown player").replace("%player%", player);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
@@ -104,7 +104,7 @@ public class MessageSender {
 	public static void neverJoined(Command command, String player) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("never joined").replace("%player%", player);
+		str += ConfigManager.getMessage("never joined").replace("%player%", player);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
@@ -116,7 +116,7 @@ public class MessageSender {
 	public static void unknownMember(Command command, String id) {
 		String str = command.getSender().getAsMention() + ",\n";
 		
-		str += Config.getMessage("unknown member").replace("%id%", id);
+		str += ConfigManager.getMessage("unknown member").replace("%id%", id);
 		command.getEvent().getChannel().sendMessage(str).complete();
 	}
 	
@@ -165,6 +165,6 @@ public class MessageSender {
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		}
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF);
-		Bot.server.getTextChannelById(Config.getString("trackerChannel")).sendMessage(embed.build()).complete();
+		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
 	}
 }

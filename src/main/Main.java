@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.security.auth.login.LoginException;
 
 import core.Bot;
-import utils.Config;
+import utils.ConfigManager;
 
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
 	public static final String PREFIX = "!";
 	
 	public static void main(String[] args) throws LoginException, IOException {
-		new Config("config.json");
+		new ConfigManager("config.json");
 		new Bot(TOKEN, ACTIVITY);
 	}
 

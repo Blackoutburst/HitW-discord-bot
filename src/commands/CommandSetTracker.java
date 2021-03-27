@@ -2,7 +2,7 @@ package commands;
 
 import core.Command;
 import core.CommandExecutable;
-import utils.Config;
+import utils.ConfigManager;
 import utils.MessageSender;
 
 public class CommandSetTracker extends CommandExecutable {
@@ -13,7 +13,7 @@ public class CommandSetTracker extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		Config.setString("trackerChannel", command.getEvent().getChannel().getId());
+		ConfigManager.setString("trackerChannel", command.getEvent().getChannel().getId());
 		MessageSender.message(command, "Tracker set to <#" + command.getEvent().getChannel().getId() + ">");
 		return (true);
 	}

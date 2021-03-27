@@ -8,16 +8,16 @@ import java.io.PrintWriter;
 
 import org.json.JSONObject;
 
-public class Config {
+public class ConfigManager {
 	
-	private static JSONObject obj;
+	private static JSONObject obj = null;
 	
 	/**
 	 * Create new JSON object from configuration file
 	 * @param file
 	 * @throws IOException
 	 */
-	public Config(String file) throws IOException {
+	public ConfigManager(String file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String json = "";
 		String line = "";
