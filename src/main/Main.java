@@ -17,7 +17,7 @@ public class Main {
 	public static final String PREFIX = "!";
 	
 	public static void main(String[] args) throws LoginException, IOException {
-		new ConfigManager("config.json");
+		new ConfigManager().init("config.json");
 		new Bot(TOKEN, ACTIVITY);
 	}
 

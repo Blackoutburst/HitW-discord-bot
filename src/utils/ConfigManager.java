@@ -17,7 +17,7 @@ public class ConfigManager {
 	 * @param file
 	 * @throws IOException
 	 */
-	public ConfigManager(String file) throws IOException {
+	public void init(String file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String json = "";
 		String line = "";

@@ -24,7 +24,7 @@ public class CommandSetConfig extends CommandExecutable {
 		if (file.getFileExtension().equals("json")) {
 			file.downloadToFile(new File("config.json"));
 			try {
-				new ConfigManager("config.json");
+				new ConfigManager().init("config.json");
 				MessageSender.messageJSON(command, "config update");
 			} catch (IOException e) {
 				MessageSender.messageJSONMention(command, "config error");
