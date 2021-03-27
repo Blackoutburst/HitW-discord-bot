@@ -23,7 +23,7 @@ public class MessageReceived {
 		if (event.isFromType(ChannelType.PRIVATE)) return;
 		if (event.getMember().getUser().isBot()) return;
 		if (event.getMessage().getContentRaw().length() == 0) return;
-		if (WallyMention(event)) return;
+		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
 		
 		
@@ -40,7 +40,7 @@ public class MessageReceived {
 	 * @param event
 	 * @return
 	 */
-	private boolean WallyMention(MessageReceivedEvent event) {
+	private boolean wallyMention(MessageReceivedEvent event) {
 		if (event.getChannel().getId().equals(ConfigManager.getString("trackerChannel"))) {
 			List<Member> members = event.getMessage().getMentionedMembers();
 			for (Member m : members) {
