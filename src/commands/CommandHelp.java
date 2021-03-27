@@ -51,7 +51,7 @@ public class CommandHelp extends CommandExecutable {
 			.setTitle("Available commands")
 			.setColor(0x00d492)
 			.addField("!help/!h", "Show this message", false)
-			.addField("!pack","Rediract you to the resource-pack channel" ,false)
+			.addField("!pack","Redirect you to the #resource-packs channel" ,false)
 			.addField("!stats/!stat/!s [player]", "Show player Hole in the Wall stats", false)
 			.addField("!ping", "Show how much Wally is dying", false)
 			.addField("!compare/!c [player1] [player2]", "Compare two players Hole in the Wall stats", false)
@@ -59,8 +59,8 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!resetbackground/!rbg", "Reset your stats background", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] [id]", "Show Hole in the Wall leaderboard", false)
 			.addField("!profile/!p [player]", "Show player Hypixel level and Achievement points", false)
-			.addField("!changelog", "Show latest Wally modification", false)
-			.addField("!convert [Q/F] [score]", "Convert a final score to a qualification score and the other way around", false)
+			.addField("!changelog", "Show latest Wally modifications", false)
+			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false);
 		
 		command.getEvent().getChannel().sendMessage(embed.build()).complete();
