@@ -66,6 +66,10 @@ public class MessageReceived {
 		return (strarr[0].substring(Main.PREFIX.length()).toLowerCase());
 	}
 
+	/**
+	 * Send a typing event
+	 * @param event
+	 */
 	private void startTyping(MessageReceivedEvent event) {
 		try {
 			event.getMessage().getChannel().sendTyping();
