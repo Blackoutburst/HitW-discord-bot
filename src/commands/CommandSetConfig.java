@@ -6,7 +6,7 @@ import java.io.IOException;
 import core.Command;
 import core.CommandExecutable;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-import utils.Config;
+import utils.ConfigManager;
 import utils.MessageSender;
 
 public class CommandSetConfig extends CommandExecutable {
@@ -24,7 +24,7 @@ public class CommandSetConfig extends CommandExecutable {
 		if (file.getFileExtension().equals("json")) {
 			file.downloadToFile(new File("config.json"));
 			try {
-				new Config("config.json");
+				new ConfigManager().init("config.json");
 				MessageSender.messageJSON(command, "config update");
 			} catch (IOException e) {
 				MessageSender.messageJSONMention(command, "config error");

@@ -2,7 +2,7 @@ package event;
 
 import core.Bot;
 import net.dv8tion.jda.api.events.GenericEvent;
-import utils.Config;
+import utils.ConfigManager;
 
 public class Generic {
 	
@@ -11,6 +11,6 @@ public class Generic {
 	 * @param event
 	 */
 	public void run(GenericEvent event) {
-		Bot.server = event.getJDA().getGuildById(Config.getString("serverID"));
+		Bot.server = event.getJDA().getGuildById(ConfigManager.getString("serverID"));
 	}
 }

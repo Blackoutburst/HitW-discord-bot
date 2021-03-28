@@ -11,7 +11,8 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-import utils.Config;
+
+import utils.ConfigManager;
 import utils.GeneralUtils;
 
 public class MessageReceived {
@@ -24,7 +25,7 @@ public class MessageReceived {
 		if (event.isFromType(ChannelType.PRIVATE)) return;
 		if (event.getMember().getUser().isBot()) return;
 		if (event.getMessage().getContentRaw().length() == 0) return;
-		if (WallyMention(event)) return;
+		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
 		
 		startTyping(event);
@@ -41,8 +42,8 @@ public class MessageReceived {
 	 * @param event
 	 * @return
 	 */
-	private boolean WallyMention(MessageReceivedEvent event) {
-		if (event.getChannel().getId().equals(Config.getString("trackerChannel"))) {
+	private boolean wallyMention(MessageReceivedEvent event) {
+		if (event.getChannel().getId().equals(ConfigManager.getString("trackerChannel"))) {
 			List<Member> members = event.getMessage().getMentionedMembers();
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
