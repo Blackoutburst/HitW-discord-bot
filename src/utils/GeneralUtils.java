@@ -359,10 +359,17 @@ public class GeneralUtils {
 		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
 		lead = sortLB(lead, type);
 
-		for(int i = 0; i < lead.size(); i++) {
-			if(lead.get(i).name.equals(user)) return i;
+		if(user.length() == 36) {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).name.equals(user)) return i;
+			}
+			return (10000);
+		} else {
+			for(int i = 0; i < lead.size(); i++) {
+				if(lead.get(i).uuid.equals(user)) return i;
+			}
+			return (10000);
 		}
-		return (10000);
 	}
 
 	/**
@@ -402,11 +409,11 @@ public class GeneralUtils {
 			image.drawStringCenter(API.getName(data), 300, 40, 32, Color.white);
 		}
 		
-		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getName(data), 'w'), 150, 125, 24, Color.white);
-		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getName(data), 'r'), 150, 175, 24, Color.white);
-		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getName(data), 'q'), 150, 225, 24, Color.white);
-		image.drawStringLeft("Best final score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getName(data), 'f'), 150, 275, 24, Color.white);
-		image.drawStringLeft("Q/F total: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getName(data), 't'), 150, 325, 24, Color.white);
+		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getUUID(data), 'w'), 150, 125, 24, Color.white);
+		image.drawStringLeft("Walls cleared: " + API.getWalls(data) + GeneralUtils.getLBPos(API.getUUID(data), 'r'), 150, 175, 24, Color.white);
+		image.drawStringLeft("Best qualification score: " + API.getQualification(data) + GeneralUtils.getLBPos(API.getUUID(data), 'q'), 150, 225, 24, Color.white);
+		image.drawStringLeft("Best final score: " + API.getFinals(data) + GeneralUtils.getLBPos(API.getUUID(data), 'f'), 150, 275, 24, Color.white);
+		image.drawStringLeft("Q/F total: " + API.getTotal(data) + GeneralUtils.getLBPos(API.getUUID(data), 't'), 150, 325, 24, Color.white);
 		image.save("stats.png");
 	}
 }
