@@ -359,14 +359,14 @@ public class GeneralUtils {
 		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
 		lead = sortLB(lead, type);
 
-		if(user.length() == 36) {
+		if(user.length() > 31) {
 			for(int i = 0; i < lead.size(); i++) {
-				if(lead.get(i).name.equals(user)) return i;
+				if(lead.get(i).uuid.equals(user)) return i;
 			}
 			return (10000);
 		} else {
 			for(int i = 0; i < lead.size(); i++) {
-				if(lead.get(i).uuid.equals(user)) return i;
+				if(lead.get(i).name.equals(user)) return i;
 			}
 			return (10000);
 		}
