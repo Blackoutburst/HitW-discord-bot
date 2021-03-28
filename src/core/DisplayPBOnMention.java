@@ -3,7 +3,7 @@ package core;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import utils.API;
-import utils.Config;
+import utils.ConfigManager;
 import utils.MessageSender;
 import utils.Stats;
 import utils.GeneralUtils;
@@ -23,7 +23,7 @@ public class DisplayPBOnMention {
 			data = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(sender.getId()));
 			localData = GeneralUtils.readJsonToString("linked player/" + GeneralUtils.getUUIDfromDiscord(sender.getId()) + "/data.json");
 		} else {
-			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + Config.getMessage("not linked")).complete();
+			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + ConfigManager.getMessage("not linked")).complete();
 			return;
 		}
 		execute(data, localData, sender, event);
@@ -43,7 +43,7 @@ public class DisplayPBOnMention {
 		int newF = API.getFinalsToInt(data);
 		
 		if (oldQ >= newQ && oldF >= newF) {
-			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + Config.getMessage("not pb")).complete();
+			event.getChannel().sendMessage(sender.getAsMention() + ",\n" + ConfigManager.getMessage("not pb")).complete();
 			return;
 		}
 		

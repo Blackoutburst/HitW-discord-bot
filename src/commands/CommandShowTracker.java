@@ -2,7 +2,7 @@ package commands;
 
 import core.Command;
 import core.CommandExecutable;
-import utils.Config;
+import utils.ConfigManager;
 import utils.MessageSender;
 
 public class CommandShowTracker extends CommandExecutable {
@@ -13,7 +13,7 @@ public class CommandShowTracker extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		MessageSender.message(command, "Tracker set inside <#" + Config.getString("trackerChannel") + ">");
+		MessageSender.message(command, "Tracker set inside <#" + ConfigManager.getString("trackerChannel") + ">");
 		return (true);
 	}
 }
