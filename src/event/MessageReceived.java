@@ -10,6 +10,7 @@ import main.Main;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import utils.ConfigManager;
 import utils.GeneralUtils;
 
@@ -26,7 +27,7 @@ public class MessageReceived {
 		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
 		
-		
+		startTyping(event);
 		String message = event.getMessage().getContentRaw();
 		Member sender = event.getMember();
 		String name = getCommandName(message);
@@ -63,6 +64,14 @@ public class MessageReceived {
 		String[] strarr = str.split(" ");
 
 		return (strarr[0].substring(Main.PREFIX.length()).toLowerCase());
+	}
+
+	private void startTyping(MessageReceivedEvent event) {
+		try {
+			event.getMessage().getChannel().sendTyping();
+		} catch(InsufficientPermissionException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
