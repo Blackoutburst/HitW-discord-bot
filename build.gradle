@@ -1,0 +1,56 @@
+plugins {
+    id 'application'
+}
+apply plugin: 'java'
+apply plugin: 'maven'
+
+application {
+    mainClass = 'main.Main'
+}
+
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
+dependencies {
+  implementation 'com.google.guava:guava:29.0-jre'
+  implementation 'com.google.code.gson:gson:2.8.6'
+  implementation 'org.json:json:20210307'
+  compile 'net.dv8tion:JDA:4.2.0_251'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+        }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://mvnrepository.com/artifact/org.json/json' }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'main.Main'
+        )
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
