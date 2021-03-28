@@ -72,7 +72,7 @@ public class MessageReceived {
 	 */
 	private void startTyping(MessageReceivedEvent event) {
 		try {
-			event.getMessage().getChannel().sendTyping();
+			event.getMessage().getChannel().sendTyping().complete();
 		} catch(InsufficientPermissionException e) {
 			e.printStackTrace();
 		}
