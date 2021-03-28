@@ -361,12 +361,12 @@ public class GeneralUtils {
 
 		if(user.length() == 36) {
 			for(int i = 0; i < lead.size(); i++) {
-				if(lead.get(i).name.equals(user)) return i;
+				if(lead.get(i).uuid.equals(user)) return i;
 			}
 			return (10000);
 		} else {
 			for(int i = 0; i < lead.size(); i++) {
-				if(lead.get(i).uuid.equals(user)) return i;
+				if(lead.get(i).name.equals(user)) return i;
 			}
 			return (10000);
 		}
