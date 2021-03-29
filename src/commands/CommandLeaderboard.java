@@ -16,7 +16,7 @@ import utils.GeneralUtils;
 import utils.Leaderboard;
 
 public class CommandLeaderboard extends CommandExecutable {
-	
+
 	public CommandLeaderboard(Command command, boolean admin, String errorMessage) {
 		super(command, admin, errorMessage);
 	}
@@ -28,16 +28,21 @@ public class CommandLeaderboard extends CommandExecutable {
 		boolean discord = isDiscord();
 		String fileName = discord ? "linked player" : "leaderboard";
 		File index = new File(fileName);
-		Canvas image = new Canvas(600, 400);
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index);
 		Leaderboard lb = new Leaderboard(lead, type);
 		lb.sort();
-		
+
+		if (page * 10 > lb.getPlayers().size() || (page + 10) * 10 > lb.getPlayers().size()) {
+			return(badUsage(this));
+		}
+
+		Canvas image = new Canvas(600, 400);
+
 		generateCanvas(image, page, lb);
 		MessageSender.sendFile(command, "lead.png");
 		return (true);
 	}
-	
+
 	/**
 	 * Generate leader board canvas
 	 * @param image
@@ -49,20 +54,19 @@ public class CommandLeaderboard extends CommandExecutable {
 		NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
 		DecimalFormat formatter = (DecimalFormat) nf;
 		int y = 0;
-		
+
 		image.drawBackground();
 		image.drawStringCenter(lb.getCanvasName(), 300, 40, 32, Color.white);
-
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
 			if (i > lb.getPlayers().size()) break;
 			LeaderboardPlayer player = lb.getPlayers().get(i);
-			String str = "#" + (i+1) + " " + player.name + " - " + formatter.format(lb.getPlayerStat(i));
-			image.drawStringCenter(str, 300, 75+(35*y), 26, Color.white);
+			String str = "#" + (i + 1) + " " + player.name + " - " + formatter.format(lb.getPlayerStat(i));
+			image.drawStringCenter(str, 300, 75 + (35 * y), 26, Color.white);
 			y++;
 		}
 		image.save("lead.png");
 	}
-	
+
 	/**
 	 * Check is the leader board is discord only
 	 * @return
@@ -75,7 +79,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		}
 		return (false);
 	}
-	
+
 	/**
 	 * Get leader board type
 	 * @return
@@ -88,14 +92,14 @@ public class CommandLeaderboard extends CommandExecutable {
 		}
 		return ('w');
 	}
-	
+
 	/**
 	 * Get leader board page
 	 * @return
 	 */
 	private int getPage() {
 		int page = 1;
-		
+
 		for (String arg : command.getArgs()) {
 			try {
 				page = Integer.parseInt(arg);
