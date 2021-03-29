@@ -69,7 +69,7 @@ public class CommandSearch extends CommandExecutable {
 		
 		for (String arg : command.getArgs()) {
 			try {
-				pos = Integer.valueOf(arg);
+				pos = Integer.parseInt(arg);
 				break;
 			} catch(Exception e) {}
 		}
