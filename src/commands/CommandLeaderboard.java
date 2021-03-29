@@ -28,10 +28,14 @@ public class CommandLeaderboard extends CommandExecutable {
 		boolean discord = isDiscord();
 		String fileName = discord ? "linked player" : "leaderboard";
 		File index = new File(fileName);
-		Canvas image = new Canvas(600, 400);
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index);
 		Leaderboard lb = new Leaderboard(lead, type);
 		lb.sort();
+
+		if (page * 10 > lb.getPlayers().size() || (page + 10) * 10 > lb.getPlayers().size()) {
+			return(badUsage(this));
+		} 
+		Canvas image = new Canvas(600, 400);
 		
 		generateCanvas(image, page, lb);
 		MessageSender.sendFile(command, "lead.png");
@@ -52,7 +56,6 @@ public class CommandLeaderboard extends CommandExecutable {
 		
 		image.drawBackground();
 		image.drawStringCenter(lb.getCanvasName(), 300, 40, 32, Color.white);
-
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
 			if (i > lb.getPlayers().size()) break;
 			LeaderboardPlayer player = lb.getPlayers().get(i);
