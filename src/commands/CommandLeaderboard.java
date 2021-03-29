@@ -54,7 +54,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		image.drawStringCenter(lb.getCanvasName(), 300, 40, 32, Color.white);
 
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
-			if (i > lb.getPlayers().size()) break;
+			if (i > lb.getPlayers().size() || i + 10 > lb.getPlayers().size()) break;
 			LeaderboardPlayer player = lb.getPlayers().get(i);
 			String str = "#" + (i+1) + " " + player.name + " - " + formatter.format(lb.getPlayerStat(i));
 			image.drawStringCenter(str, 300, 75+(35*y), 26, Color.white);
