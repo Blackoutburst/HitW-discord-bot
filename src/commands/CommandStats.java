@@ -51,7 +51,7 @@ public class CommandStats extends CommandExecutable {
 		GeneralUtils.createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
 
-		if(Integer.valueOf(API.getWinsToInt(data)) >= 25) {
+		if(API.getWinsToInt(data) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);
