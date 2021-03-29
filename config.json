@@ -3,7 +3,7 @@
     "roles": {
         "Tournament Player": "715691790984019988",
         "Top 10 Lifetime Wins": "811610352227844097",
-		"Top 10 Lifetime Walls": "816531887559409684",
+        "Top 10 Lifetime Walls": "816531887559409684",
         "Top 10 Lifetime F": "811610764124618752",
         "Staff": "779809940654784543",
         "50+ Club": "725078675510395041",
@@ -19,7 +19,8 @@
         "100+ Club": "709543919032991764",
         "Members": "709544018610094092",
         "Muted": "774296119726571541",
-        "They/Them": "778299418876051509"
+        "They/Them": "778299418876051509",
+        "Bot Repairman": "757239623737933875"
     },
     "genderMessage": "778301653748285460",
     "message": {
@@ -43,7 +44,7 @@
         "bad usage": "You typed that wrong! Try %command%.",
         "unlink": "User unlinked successfully",
         "not linked": "Only linked user can do that! Ask any staff member to get linked",
-        "missing file": "You need to upload a file with the command!",
+        "missing file": "You need to upload a file with the command!"
     },
     "serverID": "709521394848890880",
     "trackerChannel": "709548207717220352"
