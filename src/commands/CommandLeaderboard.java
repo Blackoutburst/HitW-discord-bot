@@ -33,7 +33,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		lb.sort();
 
 		if (page * 10 > lb.getPlayers().size() || (page + 10) * 10 > lb.getPlayers().size()) {
-			return(badUsage(this));
+			return(largeValue(this));
 		}
 
 		Canvas image = new Canvas(600, 400);

@@ -27,6 +27,7 @@
         "unlink error": "Impossible to find corresponding user",
         "wrong file type": "The file format is incorrect! Supported format are %format%",
         "large image": "The file is too large! Please use a file whats under %size%",
+		"large value": "The value is too large! Please use a smaller value",
         "link": "User linked successfully",
         "background reset": "Your stats background was set back to the default one",
         "unknown player": "Unknown player %player%",

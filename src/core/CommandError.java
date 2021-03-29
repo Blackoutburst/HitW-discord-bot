@@ -98,5 +98,14 @@ public interface CommandError {
 		MessageSender.unknownMember(cmd.command, id);
 		return (false);
 	}
+	
+	/**
+	 * Custom error for unlink error
+	 * @return
+	 */
+	default boolean largeValue(CommandExecutable cmd) {
+		MessageSender.messageJSONMention(cmd.command, "large value");
+		return (false);
+	}
 
 }
