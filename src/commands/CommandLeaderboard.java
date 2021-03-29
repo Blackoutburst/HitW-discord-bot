@@ -98,7 +98,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		
 		for (String arg : command.getArgs()) {
 			try {
-				page = Integer.valueOf(arg);
+				page = Integer.parseInt(arg);
 				break;
 			} catch(Exception e) {}
 		}
