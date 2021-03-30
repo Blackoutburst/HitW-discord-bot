@@ -5,6 +5,8 @@ import java.lang.management.RuntimeMXBean;
 
 import core.Command;
 import core.CommandExecutable;
+import core.LeaderboardUpdater;
+import core.Tracker;
 
 public class CommandPing extends CommandExecutable {
 
@@ -25,7 +27,11 @@ public class CommandPing extends CommandExecutable {
 		double mbUsed = (double) memUsed / 1048576;
 		RuntimeMXBean mxBean = ManagementFactory.getRuntimeMXBean();
 		long uptime = mxBean.getUptime() / 60000;
-		String formatString = "Ping: **%d** ms\nMemory: **%.2f / %d / %d** MiB\nUptime: **%d** minutes";
+		String mainThread = Thread.currentThread().isAlive() ? "alive" : "down";
+		String trackerThread = Tracker.trackerThread.isAlive() ? "alive" : "down";
+		String lbThread = LeaderboardUpdater.lbupdaterThread.isAlive() ? "alive" : "down";
+		
+		String formatString = "Ping: **%d** ms\nMemory: **%.2f / %d / %d** MiB\nUptime: **%d** minutes\nThreads: Main **"+mainThread+"** / Tracker **"+trackerThread+"** / LBUpdater **"+lbThread+"**";
 		
 		command.getEvent().getChannel().sendMessage("Pong!").queue(response -> {
 			response.editMessageFormat(formatString, System.currentTimeMillis() - time, mbUsed, mbTotal, mbMax, uptime).queue();

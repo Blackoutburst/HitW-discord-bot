@@ -10,9 +10,10 @@ import utils.GeneralUtils;
 public class Tracker {
 	
 	public static boolean forced = false;
+	public static Thread trackerThread = null;
 	
 	public Tracker() {
-		Thread trackerThread = new Thread(new Runnable(){
+		trackerThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
 					checkUsers();
