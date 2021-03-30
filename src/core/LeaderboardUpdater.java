@@ -10,7 +10,7 @@ public class LeaderboardUpdater {
 	public static boolean forced = false;
 	public static Thread lbupdaterThread = null;
 	
-	public LeaderboardUpdater() {
+	public void start() {
 		lbupdaterThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {

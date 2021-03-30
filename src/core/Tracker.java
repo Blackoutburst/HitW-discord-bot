@@ -12,7 +12,7 @@ public class Tracker {
 	public static boolean forced = false;
 	public static Thread trackerThread = null;
 	
-	public Tracker() {
+	public void start() {
 		trackerThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
