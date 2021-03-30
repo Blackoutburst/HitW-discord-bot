@@ -14,13 +14,9 @@ public class CommandSay extends CommandExecutable {
 	protected boolean execute() {
 		if (command.getArgs().length == 0) return (badUsage(this));
 		
-		String msg = "";
+		String fullString = String.join(" ", command.getArgs());
 		
-		for (String arg : command.getArgs()) {
-			msg += arg+" ";
-		}
-		
-		MessageSender.message(command, msg);
+		MessageSender.message(command, fullString);
 		command.getEvent().getMessage().delete().complete();
 		return (true);
 	}
