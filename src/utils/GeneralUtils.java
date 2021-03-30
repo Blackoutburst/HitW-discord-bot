@@ -36,8 +36,9 @@ public class GeneralUtils {
 	 */
 	public static boolean isStaff(Member member) {
 		Role staffRole = Bot.server.getRoleById(ConfigManager.getRoleId("Staff"));
+		Role botDevRole = Bot.server.getRoleById(ConfigManager.getRoleId("Bot Repairman"));
 		List<Role> memberRoles = member.getRoles();
-		return (memberRoles.contains(staffRole) || member.hasPermission(Permission.ADMINISTRATOR));
+		return (memberRoles.contains(staffRole) || memberRoles.contains(botDevRole) || member.hasPermission(Permission.ADMINISTRATOR));
 	}
 
 	/**
