@@ -1,10 +1,8 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.json.JSONObject;
 
@@ -18,14 +16,7 @@ public class ConfigManager {
 	 * @throws IOException
 	 */
 	public void init(String file) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String json = "";
-		String line = "";
-		
-		while ((line = reader.readLine()) != null) {
-			json += line;
-		}
-		reader.close();
+		String json = new String(Files.readAllBytes(Paths.get(file)));
 		obj = new JSONObject(json);
 	}
 	
@@ -65,10 +56,8 @@ public class ConfigManager {
 		obj.put(string, value);
 
 		try {
-			PrintWriter writer = new PrintWriter("config.json");
-			writer.write(obj.toString(4));
-			writer.close();
-		} catch (FileNotFoundException e) {
+			Files.write(Paths.get("config.json"), obj.toString(4).getBytes());
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

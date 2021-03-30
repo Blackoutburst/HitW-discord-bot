@@ -1,11 +1,10 @@
 package utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -175,20 +174,7 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static JSONObject readJson(String file) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			String json = "";
-			String line = "";
-
-			while ((line = reader.readLine()) != null) {
-				json += line;
-			}
-			reader.close();
-			return (new JSONObject(json));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return (null);
+		return (new JSONObject(GeneralUtils.readJsonToString(file)));
 	}
 
 	/**
@@ -198,15 +184,7 @@ public class GeneralUtils {
 	 */
 	public static String readJsonToString(String file) {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			String json = "";
-			String line = "";
-
-			while ((line = reader.readLine()) != null) {
-				json += line;
-			}
-			reader.close();
-			return (json);
+			return new String(Files.readAllBytes(Paths.get(file)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -232,11 +210,9 @@ public class GeneralUtils {
 				.put("uuid", uuid);
 
 			try {
-				PrintWriter writer = new PrintWriter("leaderboard/" + uuid + "/data.json");
-				writer.write(obj.toString(4));
-				writer.close();
+				Files.write(Paths.get("leaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes());
 				MessageSender.messageJSON(command, "leaderboard add");
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -316,10 +292,8 @@ public class GeneralUtils {
 			.put("name", API.getName(data));
 
 		try {
-			PrintWriter writer = new PrintWriter(folder + "/" + uuid + "/data.json");
-			writer.write(obj.toString(4));
-			writer.close();
-		} catch (FileNotFoundException e) {
+			Files.write(Paths.get(folder + "/" + uuid + "/data.json"), obj.toString(4).getBytes(), StandardOpenOption.WRITE);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -32,7 +32,7 @@ public class CommandConvert extends CommandExecutable {
 			default : return (badUsage(this));
 		}
 		try {
-			value = Integer.valueOf(command.getArgs()[Math.abs(typeArg-1)]);
+			value = Integer.parseInt(command.getArgs()[Math.abs(typeArg-1)]);
 		} catch(Exception e) {
 			return (badUsage(this));
 		}
