@@ -2,9 +2,7 @@ package utils;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import org.json.JSONObject;
 
@@ -58,7 +56,7 @@ public class ConfigManager {
 		obj.put(string, value);
 
 		try {
-			Files.write(Paths.get("config.json"), obj.toString(4), StandardOpenOption.WRITE);
+			Files.write(Paths.get("config.json"), obj.toString(4).getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

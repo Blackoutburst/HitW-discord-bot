@@ -209,7 +209,7 @@ public class GeneralUtils {
 				.put("uuid", uuid);
 
 			try {
-				Files.write(Paths.get("leaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes(), StandardOpenOption.WRITE);
+				Files.write(Paths.get("leaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes());
 				MessageSender.messageJSON(command, "leaderboard add");
 			} catch (IOException e) {
 				e.printStackTrace();
