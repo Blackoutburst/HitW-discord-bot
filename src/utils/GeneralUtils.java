@@ -25,9 +25,23 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class GeneralUtils {
 
+	/**
+	 * Send a typing event
+	 * @param event
+	 */
+	public static void startTyping(MessageReceivedEvent event) {
+		try {
+			event.getMessage().getChannel().sendTyping().complete();
+		} catch(InsufficientPermissionException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Check if member is staff
 	 * @param member
