@@ -38,7 +38,7 @@ public class GeneralUtils {
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
 	
 		for (LeaderboardPlayer player : lead) {
-			if(GeneralUtils.isLinkedIGN(player.name)) {
+			if(GeneralUtils.isLinkedIGN(player.name) && Bot.server.getMemberById(player.discord) != null) {
 				Member member = Bot.server.getMemberById(player.discord);
 				
 				new RolesManager().cleanLifeTimeRole(member);
