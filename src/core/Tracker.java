@@ -66,8 +66,8 @@ public class Tracker {
 
 			GeneralUtils.updateFile(data, localData, uuid, "linked player");
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
-			// Wait 500ms before making more api requests to avoid rate limit
-			delay(500);
+			
+			delay(750);
 		}
 	}
 	

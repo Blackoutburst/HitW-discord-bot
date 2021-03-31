@@ -40,7 +40,7 @@ public class LeaderboardUpdater {
 			if (API.getPlayer(data) == null) continue;
 			
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
-			delay(10000);
+			delay(60000);
 		}
 	}
 	
