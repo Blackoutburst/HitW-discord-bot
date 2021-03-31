@@ -34,6 +34,7 @@ public class CommandManager {
 			case "convert": new CommandConvert(command, EVERYONE, "!convert [Q/F] [score]").run(); break;
 			case "poll": new CommandPoll(command, ADMIN, "!poll [message]").run(); break;
 			case "search": new CommandSearch(command, EVERYONE, "!search [W/R/Q/F/T] [position]").run(); break;
+			case "whois": case "who": new CommandWhois(command, EVERYONE, "!whois [IGN]").run(); break;
 			default : return;
 		}
 	}
