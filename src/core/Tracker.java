@@ -67,7 +67,7 @@ public class Tracker {
 			GeneralUtils.updateFile(data, localData, uuid, "linked player");
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 			
-			delay(750);
+			delay(450);
 		}
 	}
 	

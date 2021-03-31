@@ -29,7 +29,7 @@ public class CommandForcePB extends CommandExecutable {
 		String data = Request.getPlayerStats(ign);
 		if (data == null) return (unknownPlayer(this, ign));
 		if (API.getPlayer(data) == null) return (neverJoined(this, ign));
-		if (!GeneralUtils.isLinkedIGN(ign)) return (notInDatabase(this));
+		if (!GeneralUtils.isLinkedUUID(API.getUUID(data))) return (notInDatabase(this));
 		
 		switch(type) {
 			case Q : MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
