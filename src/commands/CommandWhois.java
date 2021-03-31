@@ -36,7 +36,7 @@ public class CommandWhois extends CommandExecutable {
 		String IGN = API.getName(data);
 
 		EmbedBuilder embed = new EmbedBuilder();
-		embed.setAuthor("Information about : "+IGN, "https://crafatar.com/avatars/" + uuid + "?overlay", "https://crafatar.com/avatars/" + uuid + "?overlay");
+		embed.setAuthor("Informations about : "+IGN, "https://crafatar.com/avatars/" + uuid + "?overlay", "https://crafatar.com/avatars/" + uuid + "?overlay");
 		embed.setTitle(IGN + " NameMC profile", "https://fr.namemc.com/profile/"+uuid);
 		embed.setColor(new Color(0, 128, 255));
 		embed.addField("Discord", discordNick, false);
