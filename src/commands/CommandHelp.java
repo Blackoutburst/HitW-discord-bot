@@ -38,6 +38,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!forcetracker", "Force the tracker to check everyone (should not be activated all time)", false)
 			.addField("!setchangelog (file required)", "Change Wally changelog", false)
 			.addField("!getchangelog", "Get wally Changelog", false)
+			.addField("!changelog", "Show latest Wally modifications", false)
 			.addField("!poll [message]", "Make a poll", false);
 		
 		command.getEvent().getChannel().sendMessage(embed.build()).complete();
@@ -59,7 +60,6 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!resetbackground/!rbg", "Reset your stats background", false)
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] [id]", "Show Hole in the Wall leaderboard", false)
 			.addField("!profile/!p [player]", "Show player Hypixel level and Achievement points", false)
-			.addField("!changelog", "Show latest Wally modifications", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
 			.addField("!whois/!who [IGN]", "Tell information about a player", false);
