@@ -26,7 +26,6 @@ public class CommandManager {
 			case "removebackground": new CommandRemoveBackground(command, ADMIN, "!removebackground [IGN]").run(); break;
 			case "leaderboard": case "lead": case "lb": new CommandLeaderboard(command, EVERYONE, "!leaderboard [W/R/Q/F/T] [page] [\"discord\"]").run(); break;
 			case "forcepb": new CommandForcePB(command, ADMIN, "!forcePB [IGN] [Q/F]").run(); break;
-			case "profile": case "p": new CommandProfile(command, EVERYONE, "!profile [player]").run(); break;
 			case "forcetracker": new CommandForceTracker(command, ADMIN, "!forcetracker").run(); break;
 			case "changelog": new CommandChangelog(command, ADMIN, "!changelog").run(); break;
 			case "setchangelog": new CommandSetChangelog(command, ADMIN, "!setchangelog (file required)").run(); break;
