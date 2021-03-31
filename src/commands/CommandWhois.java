@@ -1,16 +1,11 @@
 package commands;
 
-import java.awt.Color;
-
 import core.Bot;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
 import net.dv8tion.jda.api.entities.Member;
 import utils.API;
-import utils.Canvas;
-import utils.MessageSender;
-import utils.Stats;
 import utils.GeneralUtils;
 
 public class CommandWhois extends CommandExecutable {
