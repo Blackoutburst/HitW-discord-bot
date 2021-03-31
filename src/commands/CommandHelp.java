@@ -61,7 +61,8 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!profile/!p [player]", "Show player Hypixel level and Achievement points", false)
 			.addField("!changelog", "Show latest Wally modifications", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
-			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false);
+			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
+			.addField("!whois/!who [IGN]", "Tell information about a player", false);
 		
 		command.getEvent().getChannel().sendMessage(embed.build()).complete();
 	}

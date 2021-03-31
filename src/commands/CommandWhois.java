@@ -16,7 +16,6 @@ public class CommandWhois extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-
 		if (command.getArgs().length == 0) return (badUsage(this));
 		
 		String data = Request.getPlayerStats(command.getArgs()[0]);
@@ -24,23 +23,26 @@ public class CommandWhois extends CommandExecutable {
 		if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
 		if (API.getUUID(data).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[0]));
 		String discordId = GeneralUtils.getDiscordfromIGN(API.getName(data));
-		String discordNick;
+		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
 			discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
-		} else {
-			discordNick = "N/A";
 		}
 		discordNick = sanitizeName(discordNick);
 		String uuid = API.getUUID(data);
 		String IGN = API.getName(data);
 
 		String format = "**IGN** : %s\n**Discord** : %s\n**UUID** : %s";
-		command.getEvent().getChannel().sendMessageFormat(format, IGN, discordNick, wins, qual, finals, uuid).complete();
+		command.getEvent().getChannel().sendMessageFormat(format, IGN, discordNick, uuid).complete();
 		
 		return (true);
 	}
 
+	/**
+	 * Get discord name
+	 * @param name
+	 * @return
+	 */
 	private String sanitizeName(String name) {
 		return name.replaceAll("@", "@ ");
 	}
