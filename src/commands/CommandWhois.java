@@ -1,9 +1,12 @@
 package commands;
 
+import java.awt.Color;
+
 import core.Bot;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import utils.API;
 import utils.GeneralUtils;
@@ -32,8 +35,13 @@ public class CommandWhois extends CommandExecutable {
 		String uuid = API.getUUID(data);
 		String IGN = API.getName(data);
 
-		String format = "**IGN** : %s\n**Discord** : %s\n**UUID** : %s";
-		command.getEvent().getChannel().sendMessageFormat(format, IGN, discordNick, uuid).complete();
+		EmbedBuilder embed = new EmbedBuilder();
+		embed.setAuthor("Information about : "+IGN, "https://crafatar.com/avatars/" + uuid + "?overlay", "https://crafatar.com/avatars/" + uuid + "?overlay");
+		embed.setTitle(IGN + " NameMC profile", "https://fr.namemc.com/profile/"+uuid);
+		embed.setColor(new Color(0, 128, 255));
+		embed.addField("Discord", discordNick, false);
+		embed.addField("UUID", uuid, false);
+		command.getEvent().getChannel().sendMessage(embed.build()).complete();
 		
 		return (true);
 	}
