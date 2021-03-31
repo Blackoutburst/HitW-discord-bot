@@ -27,18 +27,16 @@ public class CommandWhois extends CommandExecutable {
 		String discordNick;
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
-			discordNick = (member.getNickname() != null) ? member.getNickname() : member.getEffectiveName(); 
+			discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
 		} else {
 			discordNick = "N/A";
 		}
 		discordNick = sanitizeName(discordNick);
-		String wins = API.getWins(data);
-		String qual = API.getQualification(data);
-		String finals = API.getFinals(data);
 		String uuid = API.getUUID(data);
+		String IGN = API.getName(data);
 
-		String format = "**IGN** : %s\n**Discord** : %s\n**Wins** : %s\n**Qualifiers** : %s\n**Finals** : %s\n**UUID** : %s";
-		command.getEvent().getChannel().sendMessageFormat(format, command.getArgs()[0], discordNick, wins, qual, finals, uuid).complete();
+		String format = "**IGN** : %s\n**Discord** : %s\n**UUID** : %s";
+		command.getEvent().getChannel().sendMessageFormat(format, IGN, discordNick, wins, qual, finals, uuid).complete();
 		
 		return (true);
 	}
