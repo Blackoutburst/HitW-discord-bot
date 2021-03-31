@@ -139,7 +139,7 @@ public class MessageSender {
 	public static void pbMessage(String data, String discordid, String uuid, char type) {
 		EmbedBuilder embed = new EmbedBuilder();
 		String localData = GeneralUtils.readJsonToString("linked player/" + uuid + "/data.json");
-		String url = "https://www.mc-heads.net/body/" + uuid;
+		String url = "https://crafatar.com/renders/body/" + uuid + "?overlay&size=512";
 		String avatarUrl = Bot.server.getMemberById(discordid).getUser().getAvatarUrl();
 		String name = Bot.server.getMemberById(discordid).getEffectiveName();
 		int oldQ = Stats.getQualificationToInt(localData);
