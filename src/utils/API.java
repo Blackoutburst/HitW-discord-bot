@@ -209,4 +209,26 @@ public class API {
 		
 		return (q + f);
 	}
+
+	public static int getLevelToInt(String json) {
+		JSONObject obj = new JSONObject(json);
+		int lvl = 0;
+
+		try {
+			lvl = obj.getJSONObject("player").getInt("networkExp");
+		} catch (Exception e) {}
+
+		return lvl;
+	}
+
+	public static int getAPToInt(String json) {
+		JSONObject obj = new JSONObject(json);
+		int ap = 0;
+
+		try {
+			ap = obj.getJSONObject("player").getInt("achievementPoints");
+		} catch (Exception e) {}
+
+		return ap;
+	}
 }
