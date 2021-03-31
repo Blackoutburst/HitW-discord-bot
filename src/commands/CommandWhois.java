@@ -34,13 +34,18 @@ public class CommandWhois extends CommandExecutable {
 		discordNick = sanitizeName(discordNick);
 		String uuid = API.getUUID(data);
 		String IGN = API.getName(data);
+		double lvl = 1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data));
+		int ap = API.getAPToInt(data);
 
 		EmbedBuilder embed = new EmbedBuilder();
-		embed.setAuthor("Informations about : "+IGN, "https://crafatar.com/avatars/" + uuid + "?overlay", "https://crafatar.com/avatars/" + uuid + "?overlay");
-		embed.setTitle(IGN + " NameMC profile", "https://fr.namemc.com/profile/"+uuid);
+		embed.setAuthor("Information about : " + IGN, "https://namemc.com/profile/"+uuid, "https://crafatar.com/avatars/" + uuid + "?overlay");
+		embed.setTitle(IGN);
 		embed.setColor(new Color(0, 128, 255));
 		embed.addField("Discord", discordNick, false);
 		embed.addField("UUID", uuid, false);
+		embed.addField("Level", String.format("%.2f", lvl), false);
+		embed.addField("Achievements", "" + ap, false);
+		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", false);
 		command.getEvent().getChannel().sendMessage(embed.build()).complete();
 		
 		return (true);
