@@ -10,9 +10,10 @@ import utils.GeneralUtils;
 public class Tracker {
 	
 	public static boolean forced = false;
+	public static Thread trackerThread = null;
 	
-	public Tracker() {
-		Thread trackerThread = new Thread(new Runnable(){
+	public void start() {
+		trackerThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
 					checkUsers();
@@ -61,10 +62,11 @@ public class Tracker {
 			oldF = Stats.getFinalsToInt(localData);
 			newF = API.getFinalsToInt(data);
 
-			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
-			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
 			GeneralUtils.updateFile(data, localData, uuid, "linked player");
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+			
+			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
+			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
 			// Wait 500ms before making more api requests to avoid rate limit
 			delay(500);
 		}

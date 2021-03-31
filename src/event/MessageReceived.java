@@ -10,7 +10,6 @@ import main.Main;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import utils.ConfigManager;
 import utils.GeneralUtils;
 
@@ -27,7 +26,6 @@ public class MessageReceived {
 		if (wallyMention(event)) return;
 		if (!event.getMessage().getContentRaw().startsWith(Main.PREFIX)) return;
 		
-		startTyping(event);
 		String message = event.getMessage().getContentRaw();
 		Member sender = event.getMember();
 		String name = getCommandName(message);
@@ -46,6 +44,7 @@ public class MessageReceived {
 			List<Member> members = event.getMessage().getMentionedMembers();
 			for (Member m : members) {
 				if (m.getId().equals(Main.BOT_ID)) {
+					GeneralUtils.startTyping(event);
 					new DisplayPBOnMention(event.getMember(), event);
 					return (true);
 				}
@@ -66,18 +65,6 @@ public class MessageReceived {
 		return (strarr[0].substring(Main.PREFIX.length()).toLowerCase());
 	}
 
-	/**
-	 * Send a typing event
-	 * @param event
-	 */
-	private void startTyping(MessageReceivedEvent event) {
-		try {
-			event.getMessage().getChannel().sendTyping().complete();
-		} catch(InsufficientPermissionException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * Get commands arguments
 	 * @param message

@@ -21,6 +21,7 @@ public abstract class CommandExecutable implements CommandError {
 	 * Check user permission to use the command
 	 */
 	public void run() {
+		GeneralUtils.startTyping(this.command.event);
 		if (isStaffOnly()) {
 			if (senderIsStaff()) {
 				execute();

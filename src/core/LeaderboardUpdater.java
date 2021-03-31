@@ -1,48 +1,26 @@
 package core;
 
 import java.io.File;
-import java.util.List;
 
-import net.dv8tion.jda.api.entities.Member;
 import utils.API;
-import utils.LeaderboardPlayer;
 import utils.GeneralUtils;
 
 public class LeaderboardUpdater {
 	
 	public static boolean forced = false;
+	public static Thread lbupdaterThread = null;
 	
-	public LeaderboardUpdater() {
-		Thread lbupdaterThread = new Thread(new Runnable(){
+	public void start() {
+		lbupdaterThread = new Thread(new Runnable(){
 			public void run(){
 				while (true) {
 					checkUsers();
-					updateLifeTimeRoles();
 				}
 			}
 		});
 		lbupdaterThread.setDaemon(true);
 		lbupdaterThread.setName("Leaderboard updater");
 		lbupdaterThread.start();
-	}
-	
-	/**
-	 * User player leaderboard role
-	 */
-	private void updateLifeTimeRoles() {
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
-	
-		for (LeaderboardPlayer player : lead) {
-			if(GeneralUtils.isLinkedIGN(player.name)) {
-				Member member = Bot.server.getMemberById(player.discord);
-				
-				new RolesManager().cleanLifeTimeRole(member);
-				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
-				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
-				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
-				if (GeneralUtils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
-			}
-		}
 	}
 	
 	/**
@@ -62,7 +40,7 @@ public class LeaderboardUpdater {
 			if (API.getPlayer(data) == null) continue;
 			
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
-			delay(60000);
+			delay(10000);
 		}
 	}
 	

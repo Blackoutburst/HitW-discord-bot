@@ -21,13 +21,47 @@ import comparators.PlayerComparatorWins;
 import core.Bot;
 import core.Command;
 import core.Request;
+import core.RolesManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class GeneralUtils {
 
+	/**
+	 * Update lifetime leaderboard roles
+	 */
+	public static void updateLifeTimeRoles() {
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
+	
+		for (LeaderboardPlayer player : lead) {
+			if(GeneralUtils.isLinkedIGN(player.name)) {
+				Member member = Bot.server.getMemberById(player.discord);
+				
+				new RolesManager().cleanLifeTimeRole(member);
+				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+				if (GeneralUtils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
+			}
+		}
+	}
+	
+	/**
+	 * Send a typing event
+	 * @param event
+	 */
+	public static void startTyping(MessageReceivedEvent event) {
+		try {
+			event.getMessage().getChannel().sendTyping().complete();
+		} catch(InsufficientPermissionException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Check if member is staff
 	 * @param member
