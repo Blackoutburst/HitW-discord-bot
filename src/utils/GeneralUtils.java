@@ -220,9 +220,8 @@ public class GeneralUtils {
 		try {
 			return new String(Files.readAllBytes(Paths.get(file)));
 		} catch (IOException e) {
-			e.printStackTrace();
+			return (null);
 		}
-		return (null);
 	}
 
 	/**
