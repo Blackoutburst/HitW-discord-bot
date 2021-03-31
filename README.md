@@ -4,3 +4,24 @@
 
 # Wally
 
+Wally is a bot for discord that is used to link with hypixel. 
+
+## Prerequsites
+* Java 8+ - This runs on java, if you actually don't have this then don't worry, you have not been playing minecraft
+* A config file - see the config.json file and modify it to your needs
+* A Hypixel key - In order to get the data from hypixel you need a key
+* A Discord bot - To send an recive messages via discord you need a bot and a token for that bot
+
+## Building
+
+If you are on windows then open a command line and go into the directory and run
+```
+.\gradlew build
+```
+If you are on linux then open a terminal and go into the directory and run the following
+```
+./gradlew build
+```
+
+## Contributing
+see (Contributing.md)[https://github.com/Blackoutburst/Wally/blob/master/CONTRIBUTING.md]
