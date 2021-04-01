@@ -24,4 +24,4 @@ If you are on linux then open a terminal and go into the directory and run the f
 ```
 
 ## Contributing
-see (Contributing.md)[https://github.com/Blackoutburst/Wally/blob/master/CONTRIBUTING.md]
+see [Contributing.md](https://github.com/Blackoutburst/Wally/blob/master/CONTRIBUTING.md)
