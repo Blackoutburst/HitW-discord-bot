@@ -49,7 +49,10 @@ public class Tracker {
 			int oldF = 0;
 			int newF = 0;
 			
-			if(!GeneralUtils.isInsideTheServer(discordid)) GeneralUtils.unlinkMember(uuid);
+			if(!GeneralUtils.isInsideTheServer(discordid)) {
+				GeneralUtils.unlinkMember(uuid);
+				continue;
+			}
 			if(!GeneralUtils.isOnline(discordid) && !forced) continue;
 
 			data = Request.getPlayerStatsUUID(uuid);
@@ -63,7 +66,7 @@ public class Tracker {
 
 			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
 			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
-
+			
 			GeneralUtils.updateFile(data, localData, uuid, "linked player");
 			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 			

@@ -33,6 +33,7 @@ public class GeneralUtils {
 
 	/**
 	 * Update lifetime leaderboard roles
+	 * @deprecated Laggy as hell and stuck any thread calling it do not use in the current state
 	 */
 	public static void updateLifeTimeRoles() {
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
@@ -41,7 +42,6 @@ public class GeneralUtils {
 			if(GeneralUtils.isLinkedUUID(player.uuid) && player.discord != null) {
 				Member member = Bot.server.getMemberById(player.discord);
 				
-				new RolesManager().cleanLifeTimeRole(member);
 				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
 				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
 				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");

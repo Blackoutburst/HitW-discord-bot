@@ -166,6 +166,6 @@ public class MessageSender {
 		}
 		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF);
 		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
-		GeneralUtils.updateLifeTimeRoles();
+		//GeneralUtils.updateLifeTimeRoles();
 	}
 }
