@@ -2,6 +2,7 @@ package commands;
 
 import java.awt.Color;
 
+import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
@@ -34,7 +35,6 @@ public class CommandStats extends CommandExecutable {
 			data = Request.getPlayerStats(command.getArgs()[0]);
 			if (data == null) return (unknownPlayer(this, command.getArgs()[0]));
 			if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
-			if (API.getUUID(data).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}
 		
@@ -51,7 +51,9 @@ public class CommandStats extends CommandExecutable {
 		GeneralUtils.createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
 
-		if(API.getWinsToInt(data) >= 25) {
+		if (AltExcluder.isAnAlt(uuid)) MessageSender.messageJSON(command, "alt account");
+		
+		if(API.getWinsToInt(data) >= 25 && !AltExcluder.isAnAlt(uuid)) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);

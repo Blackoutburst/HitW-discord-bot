@@ -45,7 +45,8 @@
 		"bad usage": "You typed that wrong! Try %command%.",
 		"unlink": "User unlinked successfully",
 		"not linked": "Only linked user can do that! Ask any staff member to get linked",
-		"missing file": "You need to upload a file with the command!"
+		"missing file": "You need to upload a file with the command!",
+		"alt account": "This account is an alt account"
 	},
 	"serverID": "709521394848890880",
 	"trackerChannel": "709548207717220352"

@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
@@ -42,7 +43,6 @@ public class CommandCompare extends CommandExecutable {
 				player2 = Request.getPlayerStats(command.getArgs()[0]);
 				if (player2 == null) return (unknownPlayer(this, command.getArgs()[0]));
 				if (API.getPlayer(player2) == null) return (neverJoined(this, command.getArgs()[0]));
-				if (API.getUUID(player2).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[0]));
 			} else {
 				return (badUsage(this));
 			}
@@ -50,12 +50,10 @@ public class CommandCompare extends CommandExecutable {
 			player1 = Request.getPlayerStats(command.getArgs()[0]);
 			if (player1 == null) return (unknownPlayer(this, command.getArgs()[0]));
 			if (API.getPlayer(player1) == null) return (neverJoined(this, command.getArgs()[0]));
-			if (API.getUUID(player1).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[0]));
 			
 			player2 = Request.getPlayerStats(command.getArgs()[1]);
 			if (player2 == null) return (unknownPlayer(this, command.getArgs()[1]));
 			if (API.getPlayer(player2) == null) return (neverJoined(this, command.getArgs()[1]));
-			if (API.getUUID(player2).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[1]));
 		}
 		
 		Canvas image = new Canvas(600, 400);
