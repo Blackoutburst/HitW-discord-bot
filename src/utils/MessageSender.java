@@ -130,6 +130,15 @@ public class MessageSender {
 	}
 	
 	/**
+	 * Send embeded message
+	 * @param channel
+	 * @param message
+	 */
+	public static void sendEmbeded(Command command, EmbedBuilder embed) {
+		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+	}
+	
+	/**
 	 * Display personal best message
 	 * @param data
 	 * @param discordid

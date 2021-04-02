@@ -47,7 +47,7 @@ public class CommandWhois extends CommandExecutable {
 		embed.addField("Level", String.format("%.2f", lvl), false);
 		embed.addField("Achievements", "" + ap, false);
 		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", false);
-		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+		MessageSender.sendEmbeded(command, embed);
 		
 		if (AltExcluder.isAnAlt(uuid)) MessageSender.messageJSON(command, "alt account");
 		

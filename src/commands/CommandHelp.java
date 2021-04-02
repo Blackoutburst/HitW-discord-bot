@@ -3,6 +3,7 @@ package commands;
 import core.Command;
 import core.CommandExecutable;
 import net.dv8tion.jda.api.EmbedBuilder;
+import utils.MessageSender;
 
 public class CommandHelp extends CommandExecutable {
 
@@ -40,8 +41,7 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!getchangelog", "Get wally Changelog", false)
 			.addField("!changelog", "Show latest Wally modifications", false)
 			.addField("!poll [message]", "Make a poll", false);
-		
-		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+		MessageSender.sendEmbeded(command, embed);
 	}
 
 	private void sendHelp() {
@@ -62,7 +62,6 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
 			.addField("!whois/!who [IGN]", "Tell information about a player", false);
-		
-		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+		MessageSender.sendEmbeded(command, embed);
 	}
 }
