@@ -31,14 +31,21 @@ public class CommandForcePB extends CommandExecutable {
 		if (API.getPlayer(data) == null) return (neverJoined(this, ign));
 		if (!GeneralUtils.isLinkedUUID(API.getUUID(data))) return (notInDatabase(this));
 		
+		String discordId = GeneralUtils.getDiscordfromIGN(ign);
+		String uuid = API.getUUID(data);
+		String localData = GeneralUtils.readJsonToString("linked player/"+uuid+"/data.json");
+		
 		switch(type) {
-			case Q : MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');break;
-			case F : MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');break;
+			case Q : MessageSender.pbMessage(data, discordId, uuid, 'q');break;
+			case F : MessageSender.pbMessage(data, discordId, uuid, 'f');break;
 			default :
-				MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'q');
-				MessageSender.pbMessage(data, GeneralUtils.getDiscordfromIGN(ign), Request.getPlayerUUID(ign), 'f');
+				MessageSender.pbMessage(data, discordId, uuid, 'q');
+				MessageSender.pbMessage(data, discordId, uuid, 'f');
 			break;
 		}
+		GeneralUtils.updateFile(data, localData, uuid, "linked player");
+		GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+		command.getEvent().getChannel().sendMessage(ign+" PB displayed");
 		return (true);
 	}
 	
