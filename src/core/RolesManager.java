@@ -55,6 +55,8 @@ public class RolesManager {
 		if (best >= 300) roleName = "300+ Club";
 		if (best >= 350) roleName = "350+ Club";
 		if (best >= 400) roleName = "400+ Club";
+		if (best >= 450) roleName = "450+ Club";
+		if (best >= 500) roleName = "500+ Club";
 		
 		cleanClubRole(guild, member);
 		guild.addRoleToMember(member, guild.getRoleById(ConfigManager.getRoleId(roleName))).complete();
@@ -110,6 +112,8 @@ public class RolesManager {
 		if (score >= 300) {color = Bot.server.getRoleById(ConfigManager.getRoleId("300+ Club")).getColor();}
 		if (score >= 350) {color = Bot.server.getRoleById(ConfigManager.getRoleId("350+ Club")).getColor();}
 		if (score >= 400) {color = Bot.server.getRoleById(ConfigManager.getRoleId("400+ Club")).getColor();}
+		if (score >= 450) {color = Bot.server.getRoleById(ConfigManager.getRoleId("450+ Club")).getColor();}
+		if (score >= 500) {color = Bot.server.getRoleById(ConfigManager.getRoleId("500+ Club")).getColor();}
 		return color;
 	}
 }
