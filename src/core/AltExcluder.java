@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.API;
+import utils.MessageSender;
+
 public class AltExcluder {
 	
 	/**
@@ -13,11 +16,20 @@ public class AltExcluder {
 	 * @param uuid
 	 * @return
 	 */
-	public static boolean isAnAlt(String uuid) {
+	public static boolean isAnAlt(String uuid, Command command) {
 		List<String> altUuid = readList();
 		
 		for (String str : altUuid) {
-			if (uuid.equals(str)) {
+			String[] split = str.split(",");
+			
+			if (uuid.equals(split[0])) {
+				if (split.length == 1) {
+					MessageSender.altAccount(command);
+				} else {
+					String data = Request.getPlayerStatsUUID(split[1]);
+					MessageSender.altAccountOwner(command, API.getName(data));
+				}
+				
 				return (true);
 			}
 		}

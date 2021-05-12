@@ -49,7 +49,7 @@ public class CommandWhois extends CommandExecutable {
 		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", false);
 		MessageSender.sendEmbeded(command, embed);
 		
-		if (AltExcluder.isAnAlt(uuid)) MessageSender.messageJSON(command, "alt account");
+		AltExcluder.isAnAlt(uuid, this.command);
 		
 		return (true);
 	}

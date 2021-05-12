@@ -29,6 +29,24 @@ public class MessageSender {
 	}
 	
 	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void altAccountOwner(Command command, String owner) {
+		command.getEvent().getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
+	}
+	
+	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void altAccount(Command command) {
+		command.getEvent().getChannel().sendMessage("This account is an alt account, the owner is `unknown` for now").complete();
+	}
+	
+	/**
 	 * Send custom message in the command channel
 	 * @param channel
 	 * @param message

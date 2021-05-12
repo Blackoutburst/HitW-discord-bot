@@ -51,9 +51,7 @@ public class CommandStats extends CommandExecutable {
 		GeneralUtils.createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
 
-		if (AltExcluder.isAnAlt(uuid)) MessageSender.messageJSON(command, "alt account");
-		
-		if(API.getWinsToInt(data) >= 25 && !AltExcluder.isAnAlt(uuid)) {
+		if(!AltExcluder.isAnAlt(uuid, this.command) && API.getWinsToInt(data) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);
 		}
 		return (true);
