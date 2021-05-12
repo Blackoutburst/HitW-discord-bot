@@ -35,8 +35,6 @@ public class CommandForcePB extends CommandExecutable {
 		String uuid = API.getUUID(data);
 		String localData = GeneralUtils.readJsonToString("linked player/"+uuid+"/data.json");
 		
-		System.out.println("DICK");
-		
 		switch(type) {
 			case Q : MessageSender.pbMessage(data, discordId, uuid, 'q');break;
 			case F : MessageSender.pbMessage(data, discordId, uuid, 'f');break;
