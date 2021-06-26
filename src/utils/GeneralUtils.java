@@ -31,22 +31,20 @@ public class GeneralUtils {
 
 	/**
 	 * Update lifetime leaderboard roles
-	 * @deprecated Laggy as hell and stuck any thread calling it do not use in the current state
 	 */
 	public static void updateLifeTimeRoles() {
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("linked player"));
+		List<LeaderboardPlayer> lb = generatePlayerList(new File("leaderboard"));
 	
 		for (LeaderboardPlayer player : lead) {
-			if(GeneralUtils.isLinkedUUID(player.uuid) && player.discord != null) {
-				Member member = Bot.server.getMemberById(player.discord);
-				
-				new RolesManager().cleanLifeTimeRole(member);
+			Member member = Bot.server.getMemberById(player.discord);
+			
+			new RolesManager().cleanLifeTimeRole(member);
 
-				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
-				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
-				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
-				if (GeneralUtils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
-			}
+			if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+			if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+			if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+			if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
 		}
 	}
 	
@@ -354,7 +352,7 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		int pos = getLBPosToInt(user, type) + 1;
+		int pos = getLBPosToInt(user, type, null) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
 	}
 
@@ -363,8 +361,10 @@ public class GeneralUtils {
 	 * @param user
 	 * @return
 	 */
-	public static int getLBPosToInt(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+	public static int getLBPosToInt(String user, char type, List<LeaderboardPlayer> lead) {
+		if (lead == null) {
+			lead = generatePlayerList(new File("leaderboard"));
+		}
 		lead = sortLB(lead, type);
 
 		if(user.length() > 31) {
