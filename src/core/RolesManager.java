@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import utils.ConfigManager;
+import utils.MessageSender;
 
 public class RolesManager {
 	
@@ -42,7 +43,7 @@ public class RolesManager {
 	 * Set club roles from score
 	 */
 	
-	public void addClubRole(Guild guild, Member member, int qualification, int finals) {
+	public void addClubRole(Guild guild, Member member, int qualification, int finals, Command command) {
 		int best = (finals > qualification) ? finals : qualification;
 		String roleName = "";
 		
@@ -59,7 +60,16 @@ public class RolesManager {
 		if (best >= 500) roleName = "500+ Club";
 		
 		cleanClubRole(guild, member);
-		guild.addRoleToMember(member, guild.getRoleById(ConfigManager.getRoleId(roleName))).complete();
+		
+		Role role = guild.getRoleById(ConfigManager.getRoleId(roleName));
+		
+		if (role == null) {
+			if (command != null) {
+				MessageSender.message(command, "Impossible to add club roles");
+			}
+			return;
+		}
+		guild.addRoleToMember(member, role).complete();
 	}
 	
 	/**

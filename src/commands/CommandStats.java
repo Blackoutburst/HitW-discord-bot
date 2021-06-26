@@ -50,6 +50,10 @@ public class CommandStats extends CommandExecutable {
 		
 		GeneralUtils.createImage(image, data);
 		MessageSender.sendFile(command, "stats.png");
+		
+		String fileLocation = "leaderboard/" + uuid + "/data.json";
+		String localData = GeneralUtils.readJsonToString(fileLocation);
+		GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 
 		if(!AltExcluder.isAnAlt(uuid, this.command) && API.getWinsToInt(data) >= 25) {
 			GeneralUtils.addToLeaderBoard(uuid, data, command);

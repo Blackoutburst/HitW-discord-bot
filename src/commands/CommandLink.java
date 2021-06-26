@@ -1,7 +1,6 @@
 package commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 import org.json.JSONObject;
@@ -36,6 +35,8 @@ public class CommandLink extends CommandExecutable {
 			ign = 0;
 		}
 		
+		System.out.println("discord: "+discord+" | ign: "+ign);
+		
 		try {
 			command.getEvent().getGuild().getMemberById(command.getArgs()[discord]);
 		} catch(Exception e) {
@@ -50,7 +51,6 @@ public class CommandLink extends CommandExecutable {
 		generateFiles(data, ign, discord);
 		setRole(data, discord);
 		
-		MessageSender.messageJSON(command, "link");
 		return (true);
 	}
 	
@@ -64,7 +64,7 @@ public class CommandLink extends CommandExecutable {
 		int Q = API.getQualificationToInt(data);
 		int F = API.getFinalsToInt(data);
 		
-		new RolesManager().addClubRole(guild, member, Q, F);
+		new RolesManager().addClubRole(guild, member, Q, F, command);
 	}
 	
 	/**
@@ -89,8 +89,10 @@ public class CommandLink extends CommandExecutable {
 			PrintWriter writer = new PrintWriter("linked player/" + uuid + "/data.json");
 			writer.write(obj.toString(4));
 			writer.close();		
-		} catch (FileNotFoundException e) {
+			MessageSender.messageJSON(command, "link");
+		} catch (Exception e) {
 			e.printStackTrace();
+			MessageSender.message(command, "There was an error while trying to link this user");
 		}
 		GeneralUtils.addToLeaderBoard(uuid, data, command);
 	}

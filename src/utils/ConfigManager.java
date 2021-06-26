@@ -57,7 +57,7 @@ public class ConfigManager {
 
 		try {
 			Files.write(Paths.get("config.json"), obj.toString(4).getBytes());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

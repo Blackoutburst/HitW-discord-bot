@@ -1,7 +1,6 @@
 package commands;
 
 import java.io.File;
-import java.io.IOException;
 
 import core.Command;
 import core.CommandExecutable;
@@ -26,7 +25,7 @@ public class CommandSetConfig extends CommandExecutable {
 			try {
 				new ConfigManager().init("config.json");
 				MessageSender.messageJSON(command, "config update");
-			} catch (IOException e) {
+			} catch (Exception e) {
 				MessageSender.messageJSONMention(command, "config error");
 				e.printStackTrace();
 			}

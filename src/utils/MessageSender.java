@@ -52,6 +52,7 @@ public class MessageSender {
 	 * @param message
 	 */
 	public static void message(Command command, String message) {
+		if (command == null) return;
 		command.getEvent().getChannel().sendMessage(message).complete();
 	}
 	
@@ -179,19 +180,21 @@ public class MessageSender {
 		embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 		
 		if (type == 'q') {
+			if (newQ - oldQ <= 0) return;
 			embed.setTitle(API.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
 			embed.addField("New PB", "**" + newQ + "**",true);
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
 		} else {
+			if (newF - oldF <= 0) return;
 			embed.setTitle(API.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
 			embed.addField("New PB", "**" + newF + "**",true);
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		}
-		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF);
+		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
 		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
 		//GeneralUtils.updateLifeTimeRoles();
 	}

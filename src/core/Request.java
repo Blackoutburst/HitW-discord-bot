@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -26,7 +25,7 @@ public class Request {
 			URL url = new URL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.API);
 			
 			return (getStats(url));
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			return (null);
 		}
 	}
@@ -41,7 +40,7 @@ public class Request {
 				URL url = new URL("https://api.hypixel.net/player?uuid=" + uuid + "&key=" + Main.API);
 				
 				return (getStats(url));
-			} catch (MalformedURLException e) {
+			} catch (Exception e) {
 				return (null);
 			}
 	}

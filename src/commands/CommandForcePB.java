@@ -45,7 +45,7 @@ public class CommandForcePB extends CommandExecutable {
 		}
 		GeneralUtils.updateFile(data, localData, uuid, "linked player");
 		GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
-		command.getEvent().getChannel().sendMessage(ign+" PB displayed");
+		MessageSender.message(command, ign+" PB displayed");
 		return (true);
 	}
 	

@@ -2,7 +2,6 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class AltExcluder {
 			}
 			br.close();
 			in.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return(uuids);

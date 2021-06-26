@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -27,7 +26,6 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class GeneralUtils {
 
@@ -59,7 +57,7 @@ public class GeneralUtils {
 	public static void startTyping(MessageReceivedEvent event) {
 		try {
 			event.getMessage().getChannel().sendTyping().complete();
-		} catch(InsufficientPermissionException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -221,7 +219,7 @@ public class GeneralUtils {
 	public static String readJsonToString(String file) {
 		try {
 			return new String(Files.readAllBytes(Paths.get(file)));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return (null);
@@ -233,7 +231,6 @@ public class GeneralUtils {
 	 * @param data
 	 */
 	public static void addToLeaderBoard(String uuid, String data, Command command) {
-		if (uuid.equals("9c05f51a1d644dc4b2ad3f4cff85a64b")) return;
 		if (!new File("leaderboard/" + uuid).exists()) {
 			new File("leaderboard/" + uuid).mkdir();
 			JSONObject obj = new JSONObject()
@@ -248,7 +245,7 @@ public class GeneralUtils {
 			try {
 				Files.write(Paths.get("leaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes());
 				MessageSender.messageJSON(command, "leaderboard add");
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -329,7 +326,7 @@ public class GeneralUtils {
 
 		try {
 			Files.write(Paths.get(folder + "/" + uuid + "/data.json"), obj.toString(4).getBytes(), StandardOpenOption.WRITE);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
