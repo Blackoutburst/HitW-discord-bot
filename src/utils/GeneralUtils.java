@@ -41,10 +41,10 @@ public class GeneralUtils {
 			
 			new RolesManager().cleanLifeTimeRole(member);
 
-			if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
-			if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
-			if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
-			if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
+			if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+			if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+			if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+			if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
 		}
 	}
 	
