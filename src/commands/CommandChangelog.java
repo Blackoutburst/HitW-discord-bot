@@ -16,10 +16,8 @@ public class CommandChangelog extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
-		if (!new File("changelog.txt").exists()) {
-			MessageSender.message(command, "The changelog files doesn't exist");
-			return (true);
-		}
+		if (!new File("changelog.txt").exists()) return (missingFile(this));
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("changelog.txt"));
 			String changelog = "";
