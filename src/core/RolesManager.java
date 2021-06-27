@@ -100,7 +100,7 @@ public class RolesManager {
 	 */
 	public void cleanLifeTimeRole(Member member) {
 		for (Role r : member.getRoles()) {
-			if (r.getName().contains("LifeTime")) {
+			if (r.getName().contains("Top 10 Lifetime")) {
 				Bot.server.removeRoleFromMember(member, r).complete();
 			}
 		}
