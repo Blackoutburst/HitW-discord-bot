@@ -39,7 +39,7 @@ public class GeneralUtils {
 		for (LeaderboardPlayer player : lead) {
 			Member member = Bot.server.getMemberById(player.discord);
 			
-			new RolesManager().cleanLifeTimeRole(member);
+			new RolesManager().cleanLifeTimeRole(member, lb, player);
 
 			if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
 			if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");

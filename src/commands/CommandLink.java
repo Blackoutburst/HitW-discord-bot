@@ -1,7 +1,8 @@
 package commands;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.json.JSONObject;
 
@@ -34,8 +35,6 @@ public class CommandLink extends CommandExecutable {
 			discord = 1;
 			ign = 0;
 		}
-		
-		System.out.println("discord: "+discord+" | ign: "+ign);
 		
 		try {
 			command.getEvent().getGuild().getMemberById(command.getArgs()[discord]);
@@ -86,9 +85,7 @@ public class CommandLink extends CommandExecutable {
 		obj.put("uuid", uuid);
 		
 		try {
-			PrintWriter writer = new PrintWriter("linked player/" + uuid + "/data.json");
-			writer.write(obj.toString(4));
-			writer.close();		
+			Files.write(Paths.get("linked player/" + uuid + "/data.json"), obj.toString(4).getBytes());
 			MessageSender.messageJSON(command, "link");
 		} catch (Exception e) {
 			e.printStackTrace();

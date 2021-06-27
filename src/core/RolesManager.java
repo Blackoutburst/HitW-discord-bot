@@ -1,11 +1,14 @@
 package core;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import utils.ConfigManager;
+import utils.GeneralUtils;
+import utils.LeaderboardPlayer;
 import utils.MessageSender;
 
 public class RolesManager {
@@ -98,11 +101,20 @@ public class RolesManager {
 	 * @param guild
 	 * @param member
 	 */
-	public void cleanLifeTimeRole(Member member) {
+	public void cleanLifeTimeRole(Member member, List<LeaderboardPlayer> lb, LeaderboardPlayer player) {
 		for (Role r : member.getRoles()) {
-			if (r.getName().contains("Top 10 Lifetime")) {
-				Bot.server.removeRoleFromMember(member, r).complete();
-			}
+			if (r.getName().contains("Top 10 Lifetime Wins"))
+				if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) >= 10)
+					Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Q"))
+				if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) >= 10)
+					Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime F"))
+				if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) >= 10)
+					Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Walls"))
+				if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) >= 10)
+					Bot.server.removeRoleFromMember(member, r).complete();
 		}
 	}
 	
