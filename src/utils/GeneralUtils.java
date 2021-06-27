@@ -352,7 +352,9 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		int pos = getLBPosToInt(user, type, null) + 1;
+		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+		
+		int pos = getLBPosToInt(user, type, lead) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
 	}
 
@@ -362,9 +364,6 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static int getLBPosToInt(String user, char type, List<LeaderboardPlayer> lead) {
-		if (lead == null) {
-			lead = generatePlayerList(new File("leaderboard"));
-		}
 		lead = sortLB(lead, type);
 
 		if(user.length() > 31) {

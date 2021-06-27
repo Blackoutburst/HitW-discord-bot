@@ -103,18 +103,18 @@ public class RolesManager {
 	 */
 	public void cleanLifeTimeRole(Member member, List<LeaderboardPlayer> lb, LeaderboardPlayer player) {
 		for (Role r : member.getRoles()) {
-			if (r.getName().contains("Top 10 Lifetime Wins"))
-				if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) >= 10)
-					Bot.server.removeRoleFromMember(member, r).complete();
-			if (r.getName().contains("Top 10 Lifetime Q"))
-				if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) >= 10)
-					Bot.server.removeRoleFromMember(member, r).complete();
-			if (r.getName().contains("Top 10 Lifetime F"))
-				if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) >= 10)
-					Bot.server.removeRoleFromMember(member, r).complete();
-			if (r.getName().contains("Top 10 Lifetime Walls"))
-				if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) >= 10)
-					Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Wins") && 
+				GeneralUtils.getLBPosToInt(player.name, 'w', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Q") && 
+				GeneralUtils.getLBPosToInt(player.name, 'q', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime F") && 
+				GeneralUtils.getLBPosToInt(player.name, 'f', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Walls") && 
+				GeneralUtils.getLBPosToInt(player.name, 'r', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
 		}
 	}
 	
