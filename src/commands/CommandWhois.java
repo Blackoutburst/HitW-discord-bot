@@ -2,6 +2,7 @@ package commands;
 
 import java.awt.Color;
 
+import core.AltExcluder;
 import core.Bot;
 import core.Command;
 import core.CommandExecutable;
@@ -10,6 +11,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import utils.API;
 import utils.GeneralUtils;
+import utils.MessageSender;
 
 public class CommandWhois extends CommandExecutable {
 
@@ -24,7 +26,6 @@ public class CommandWhois extends CommandExecutable {
 		String data = Request.getPlayerStats(command.getArgs()[0]);
 		if (data == null) return (unknownPlayer(this, command.getArgs()[0]));
 		if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
-		if (API.getUUID(data).equals("9293868b414c42b2bd8e3bcb791247b9")) return (unknownPlayer(this, command.getArgs()[0]));
 		String discordId = GeneralUtils.getDiscordfromIGN(API.getName(data));
 		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
@@ -36,7 +37,7 @@ public class CommandWhois extends CommandExecutable {
 		String IGN = API.getName(data);
 		double lvl = 1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data));
 		int ap = API.getAPToInt(data);
-
+		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.setAuthor("Information about : " + IGN, "https://namemc.com/profile/"+uuid, "https://crafatar.com/avatars/" + uuid + "?overlay");
 		embed.setTitle(IGN);
@@ -46,7 +47,9 @@ public class CommandWhois extends CommandExecutable {
 		embed.addField("Level", String.format("%.2f", lvl), false);
 		embed.addField("Achievements", "" + ap, false);
 		embed.addField("Plancke", "[Link](https://plancke.io/hypixel/player/stats/" + uuid + ")", false);
-		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+		MessageSender.sendEmbeded(command, embed);
+		
+		AltExcluder.isAnAlt(uuid, this.command);
 		
 		return (true);
 	}

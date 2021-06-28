@@ -1,11 +1,15 @@
 package core;
 
 import java.awt.Color;
+import java.util.List;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import utils.ConfigManager;
+import utils.GeneralUtils;
+import utils.LeaderboardPlayer;
+import utils.MessageSender;
 
 public class RolesManager {
 	
@@ -42,7 +46,7 @@ public class RolesManager {
 	 * Set club roles from score
 	 */
 	
-	public void addClubRole(Guild guild, Member member, int qualification, int finals) {
+	public void addClubRole(Guild guild, Member member, int qualification, int finals, Command command) {
 		int best = (finals > qualification) ? finals : qualification;
 		String roleName = "";
 		
@@ -55,9 +59,20 @@ public class RolesManager {
 		if (best >= 300) roleName = "300+ Club";
 		if (best >= 350) roleName = "350+ Club";
 		if (best >= 400) roleName = "400+ Club";
+		if (best >= 450) roleName = "450+ Club";
+		if (best >= 500) roleName = "500+ Club";
 		
 		cleanClubRole(guild, member);
-		guild.addRoleToMember(member, guild.getRoleById(ConfigManager.getRoleId(roleName))).complete();
+		
+		Role role = guild.getRoleById(ConfigManager.getRoleId(roleName));
+		
+		if (role == null) {
+			if (command != null) {
+				MessageSender.message(command, "Impossible to add club roles");
+			}
+			return;
+		}
+		guild.addRoleToMember(member, role).complete();
 	}
 	
 	/**
@@ -86,11 +101,20 @@ public class RolesManager {
 	 * @param guild
 	 * @param member
 	 */
-	public void cleanLifeTimeRole(Member member) {
+	public void cleanLifeTimeRole(Member member, List<LeaderboardPlayer> lb, LeaderboardPlayer player) {
 		for (Role r : member.getRoles()) {
-			if (r.getName().contains("LifeTime")) {
+			if (r.getName().contains("Top 10 Lifetime Wins") && 
+				GeneralUtils.getLBPosToInt(player.name, 'w', lb) >= 10)
 				Bot.server.removeRoleFromMember(member, r).complete();
-			}
+			if (r.getName().contains("Top 10 Lifetime Q") && 
+				GeneralUtils.getLBPosToInt(player.name, 'q', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime F") && 
+				GeneralUtils.getLBPosToInt(player.name, 'f', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
+			if (r.getName().contains("Top 10 Lifetime Walls") && 
+				GeneralUtils.getLBPosToInt(player.name, 'r', lb) >= 10)
+				Bot.server.removeRoleFromMember(member, r).complete();
 		}
 	}
 	
@@ -110,6 +134,8 @@ public class RolesManager {
 		if (score >= 300) {color = Bot.server.getRoleById(ConfigManager.getRoleId("300+ Club")).getColor();}
 		if (score >= 350) {color = Bot.server.getRoleById(ConfigManager.getRoleId("350+ Club")).getColor();}
 		if (score >= 400) {color = Bot.server.getRoleById(ConfigManager.getRoleId("400+ Club")).getColor();}
+		if (score >= 450) {color = Bot.server.getRoleById(ConfigManager.getRoleId("450+ Club")).getColor();}
+		if (score >= 500) {color = Bot.server.getRoleById(ConfigManager.getRoleId("500+ Club")).getColor();}
 		return color;
 	}
 }

@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -27,7 +26,6 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class GeneralUtils {
 
@@ -35,18 +33,18 @@ public class GeneralUtils {
 	 * Update lifetime leaderboard roles
 	 */
 	public static void updateLifeTimeRoles() {
-		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("leaderboard"));
+		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(new File("linked player"));
+		List<LeaderboardPlayer> lb = generatePlayerList(new File("leaderboard"));
 	
 		for (LeaderboardPlayer player : lead) {
-			if(GeneralUtils.isLinkedUUID(player.uuid) && player.discord != null) {
-				Member member = Bot.server.getMemberById(player.discord);
-				
-				new RolesManager().cleanLifeTimeRole(member);
-				if (GeneralUtils.getLBPosToInt(player.name, 'w') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
-				if (GeneralUtils.getLBPosToInt(player.name, 'q') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
-				if (GeneralUtils.getLBPosToInt(player.name, 'f') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
-				if (GeneralUtils.getLBPosToInt(player.name, 'r') <= 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
-			}
+			Member member = Bot.server.getMemberById(player.discord);
+			
+			new RolesManager().cleanLifeTimeRole(member, lb, player);
+
+			if (GeneralUtils.getLBPosToInt(player.name, 'w', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Wins");
+			if (GeneralUtils.getLBPosToInt(player.name, 'q', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Q");
+			if (GeneralUtils.getLBPosToInt(player.name, 'f', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime F");
+			if (GeneralUtils.getLBPosToInt(player.name, 'r', lb) < 10) new RolesManager().addLifeTimeRole(member, "Top 10 Lifetime Walls");
 		}
 	}
 	
@@ -57,7 +55,7 @@ public class GeneralUtils {
 	public static void startTyping(MessageReceivedEvent event) {
 		try {
 			event.getMessage().getChannel().sendTyping().complete();
-		} catch(InsufficientPermissionException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -219,7 +217,7 @@ public class GeneralUtils {
 	public static String readJsonToString(String file) {
 		try {
 			return new String(Files.readAllBytes(Paths.get(file)));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return (null);
@@ -231,7 +229,6 @@ public class GeneralUtils {
 	 * @param data
 	 */
 	public static void addToLeaderBoard(String uuid, String data, Command command) {
-		if (uuid.equals("9c05f51a1d644dc4b2ad3f4cff85a64b")) return;
 		if (!new File("leaderboard/" + uuid).exists()) {
 			new File("leaderboard/" + uuid).mkdir();
 			JSONObject obj = new JSONObject()
@@ -246,7 +243,7 @@ public class GeneralUtils {
 			try {
 				Files.write(Paths.get("leaderboard/" + uuid + "/data.json"), obj.toString(4).getBytes());
 				MessageSender.messageJSON(command, "leaderboard add");
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -327,7 +324,7 @@ public class GeneralUtils {
 
 		try {
 			Files.write(Paths.get(folder + "/" + uuid + "/data.json"), obj.toString(4).getBytes(), StandardOpenOption.WRITE);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -355,7 +352,9 @@ public class GeneralUtils {
 	 * @return
 	 */
 	public static String getLBPos(String user, char type) {
-		int pos = getLBPosToInt(user, type) + 1;
+		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+		
+		int pos = getLBPosToInt(user, type, lead) + 1;
 		return (pos != 10001) ? " (#"+ pos + ")" : "";
 	}
 
@@ -364,8 +363,7 @@ public class GeneralUtils {
 	 * @param user
 	 * @return
 	 */
-	public static int getLBPosToInt(String user, char type) {
-		List<LeaderboardPlayer> lead = generatePlayerList(new File("leaderboard"));
+	public static int getLBPosToInt(String user, char type, List<LeaderboardPlayer> lead) {
 		lead = sortLB(lead, type);
 
 		if(user.length() > 31) {

@@ -29,11 +29,30 @@ public class MessageSender {
 	}
 	
 	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void altAccountOwner(Command command, String owner) {
+		command.getEvent().getChannel().sendMessage("This account is the alt account of `"+owner+"`").complete();
+	}
+	
+	/**
+	 * Send message in the command channel
+	 * @param channel
+	 * @param message
+	 */
+	public static void altAccount(Command command) {
+		command.getEvent().getChannel().sendMessage("This account is an alt account, the owner is `unknown` for now").complete();
+	}
+	
+	/**
 	 * Send custom message in the command channel
 	 * @param channel
 	 * @param message
 	 */
 	public static void message(Command command, String message) {
+		if (command == null) return;
 		command.getEvent().getChannel().sendMessage(message).complete();
 	}
 	
@@ -130,6 +149,15 @@ public class MessageSender {
 	}
 	
 	/**
+	 * Send embeded message
+	 * @param channel
+	 * @param message
+	 */
+	public static void sendEmbeded(Command command, EmbedBuilder embed) {
+		command.getEvent().getChannel().sendMessage(embed.build()).complete();
+	}
+	
+	/**
 	 * Display personal best message
 	 * @param data
 	 * @param discordid
@@ -152,19 +180,21 @@ public class MessageSender {
 		embed.setFooter("Discord ID: " + discordid + "\nUUID: " + uuid);
 		
 		if (type == 'q') {
+			if (newQ - oldQ <= 0) return;
 			embed.setTitle(API.getName(data)+" Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Qualifiers** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newQ));
 			embed.addField("Old PB", "**" + oldQ + "**",true);
 			embed.addField("New PB", "**" + newQ + "**",true);
 			embed.addField("Increase","**" + (newQ - oldQ) + "**",true);
 		} else {
+			if (newF - oldF <= 0) return;
 			embed.setTitle(API.getName(data) + " Improved " + GeneralUtils.getGenderPrefix(discordid) + " **Finals** Personal Best!");
 			embed.setColor(RolesManager.getRoleColor(newF));
 			embed.addField("Old PB", "**" + oldF + "**",true);
 			embed.addField("New PB", "**" + newF + "**",true);
 			embed.addField("Increase","**" + (newF - oldF) + "**",true);
 		}
-		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF);
+		new RolesManager().addClubRole(Bot.server, Bot.server.getMemberById(discordid), newQ, newF, null);
 		Bot.server.getTextChannelById(ConfigManager.getString("trackerChannel")).sendMessage(embed.build()).complete();
 		GeneralUtils.updateLifeTimeRoles();
 	}

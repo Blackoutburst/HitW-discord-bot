@@ -9,6 +9,8 @@
 		"50+ Club": "725078675510395041",
 		"150+ Club": "725078796507807843",
 		"400+ Club": "774278519327817748",
+		"450+ Club": "830963053721419817",
+		"500+ Club": "831544623217770498",
 		"250+ Club": "725087157814820891",
 		"She/Her": "778299230757847050",
 		"Top 10 Lifetime Q": "811610563075244113",
@@ -45,7 +47,8 @@
 		"bad usage": "You typed that wrong! Try %command%.",
 		"unlink": "User unlinked successfully",
 		"not linked": "Only linked user can do that! Ask any staff member to get linked",
-		"missing file": "You need to upload a file with the command!"
+		"missing file": "You need to upload a file with the command!",
+		"alt account": "This account is an alt account"
 	},
 	"serverID": "709521394848890880",
 	"trackerChannel": "709548207717220352"

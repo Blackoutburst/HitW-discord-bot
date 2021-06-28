@@ -51,7 +51,7 @@ public class LeaderboardUpdater {
 	private void delay(int ms) {
 		try {
 			Thread.sleep(ms);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

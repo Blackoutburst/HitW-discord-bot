@@ -2,12 +2,10 @@ package utils;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -26,7 +24,7 @@ public class Canvas {
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
 			
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		} catch (IOException | FontFormatException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -40,7 +38,7 @@ public class Canvas {
 		
 		try {
 			ImageIO.write(bufferedImage, "png", file);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,7 +56,7 @@ public class Canvas {
 			BufferedImage image = ImageIO.read(new File(file));
 			
 			g.drawImage(image, x, y, width, height, null);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -132,7 +130,7 @@ public class Canvas {
 			g.drawImage(image, x, y, width, height, null);
 			g.setColor(new Color(0, 0, 0, 0.4f));
 			g.fillRect(x, y, width, height);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -144,7 +142,7 @@ public class Canvas {
 	public void setBackground(String file) {
 		try {
 			background = ImageIO.read(new File(file));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 
 import core.Command;
@@ -15,6 +16,8 @@ public class CommandChangelog extends CommandExecutable {
 
 	@Override
 	protected boolean execute() {
+		if (!new File("changelog.txt").exists()) return (missingFile(this));
+
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("changelog.txt"));
 			String changelog = "";
@@ -25,6 +28,7 @@ public class CommandChangelog extends CommandExecutable {
 			}
 			reader.close();
 			MessageSender.message(command, changelog);
+			command.getEvent().getMessage().delete().complete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
