@@ -39,15 +39,13 @@ public class BetaCanvas {
 		if (API.getName(data).equals("Blackoutburst")) {
 			image.drawImage("res/beta/blackout.png", 130, 110, 320, 80);
 		} else {
-			image.drawStringLeft(API.getName(data), 130, 140, 48, Color.white);
+			image.drawStringLeft(API.getName(data), 130, 140, 46, Color.white);
 		}
 		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		
 		int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));
 		
-		image.drawStringLeft("Hypixel level: " + lvl, 20, 250, 36, Color.white);
-		image.drawStringLeft("Achievement points: " + API.getAP(data), 20, 310, 36, Color.white);
 		
 		String discordId = GeneralUtils.getDiscordfromIGN(API.getName(data));
 		String discordNick = "N/A";
@@ -57,7 +55,14 @@ public class BetaCanvas {
 			discordNick = discordNick.replaceAll("@", "@ ");
 		}
 		
-		image.drawStringLeft("Discord: " + discordNick, 20, 370, 36, Color.white);
+		if (!discordNick.equals("N/A")) {
+			image.drawStringLeft(discordNick, 20, 250, 36, Color.white);
+			image.drawStringLeft("Hypixel level: " + lvl, 20, 310, 36, Color.white);
+			image.drawStringLeft("Achievement points: " + API.getAP(data), 20, 370, 36, Color.white);
+		} else {
+			image.drawStringLeft("Hypixel level: " + lvl, 20, 250, 36, Color.white);
+			image.drawStringLeft("Achievement points: " + API.getAP(data), 20, 310, 36, Color.white);
+		}
 		
 		getPlayerHead(uuid);
 		image.drawImage("res/beta/head.png", 20, 100, 100, 100);
