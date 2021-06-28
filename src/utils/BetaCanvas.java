@@ -12,7 +12,6 @@ import java.net.URLConnection;
 
 import core.Bot;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
 
 public class BetaCanvas {
 
@@ -43,7 +42,7 @@ public class BetaCanvas {
 			image.drawStringLeft(API.getName(data), 130, 140, 48, Color.white);
 		}
 		
-		image.drawStringLeft(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
+		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		
 		int lvl = (int) (1.0 + -8750.0 / 2500.0 + Math.sqrt(-8750.0 / 2500.0 * -8750.0 / 2500.0 + 2.0 / 2500.0 * (double)API.getLevelToInt(data)));
 		
@@ -56,18 +55,12 @@ public class BetaCanvas {
 			Member member = Bot.server.getMemberById(discordId);
 			discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
 			discordNick = discordNick.replaceAll("@", "@ ");
-			User u = member.getUser();
-			getDiscordPFP(u.getAvatarUrl());
 		}
 		
 		image.drawStringLeft("Discord: " + discordNick, 20, 370, 36, Color.white);
 		
-		if (discordId != null) {
-			image.drawImage("res/beta/pfp.png", 20, 100, 100, 100);
-		} else {
-			getPlayerHead(uuid);
-			image.drawImage("res/beta/head.png", 20, 100, 100, 100);
-		}
+		getPlayerHead(uuid);
+		image.drawImage("res/beta/head.png", 20, 100, 100, 100);
 		
 		
 		image.drawStringLeft("Wins: " + API.getWins(data) + GeneralUtils.getLBPos(API.getUUID(data), 'w'), 560, 130, 30, Color.white);
@@ -86,38 +79,6 @@ public class BetaCanvas {
 		try {
 			URL url = new URL("https://crafatar.com/avatars/" + uuid + "?overlay");
 			FileOutputStream fos = new FileOutputStream("res/beta/head.png");
-			
-			URLConnection con = url.openConnection();
-			InputStream is = con.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			InputStream in = new BufferedInputStream(url.openStream());
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int n = 0;
-			while (-1 != (n = in.read(buf))) {
-				out.write(buf, 0, n);
-			}
-			out.close();
-			in.close();
-			br.close();
-			
-			byte[] response = out.toByteArray();
-			fos.write(response);
-			fos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Get discord profile picture
-	 * @param link
-	 */
-	private static void getDiscordPFP(String link) {
-		try {
-			URL url = new URL(link);
-			FileOutputStream fos = new FileOutputStream("res/beta/pfp.png");
 			
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
