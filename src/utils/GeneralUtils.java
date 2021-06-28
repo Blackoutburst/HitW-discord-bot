@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.Color;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,8 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
-
-import java.awt.Color;
 
 import comparators.PlayerComparatorF;
 import comparators.PlayerComparatorQ;

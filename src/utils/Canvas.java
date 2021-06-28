@@ -2,10 +2,12 @@ package utils;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -19,7 +21,7 @@ public class Canvas {
 	public Canvas(int width, int height) {
 		try {
 			background = ImageIO.read(new File("res/background.png"));
-			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			g = bufferedImage.createGraphics();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("res/font.ttf"));
 			
@@ -143,6 +145,18 @@ public class Canvas {
 		try {
 			background = ImageIO.read(new File(file));
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Load custom font file
+	 * @param file
+	 */
+	public void loadFont(String file) {
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(file));
+		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 	}

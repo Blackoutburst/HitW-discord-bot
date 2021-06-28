@@ -63,7 +63,8 @@ public class CommandHelp extends CommandExecutable {
 			.addField("!leaderboard/!lead/!lb [W/R/Q/F/T] [page] [id]", "Show Hole in the Wall leaderboard", false)
 			.addField("!convert [Q/F] [score]", "Convert a finals score to a qualification score and the other way around", false)
 			.addField("!search [W/R/Q/F/T] [position]", "Search a player stats from their leaderboard position", false)
-			.addField("!whois/!who [IGN]", "Tell information about a player", false);
+			.addField("!whois/!who [IGN]", "Tell information about a player", false)
+			.addField("!betastats/!betastat/!bs [IGN]", "Same use as !stats (might change or get removed at any time)", false);
 		MessageSender.sendEmbeded(command, embed);
 	}
 }

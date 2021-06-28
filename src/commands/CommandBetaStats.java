@@ -1,20 +1,18 @@
 package commands;
 
-import java.awt.Color;
-
 import core.AltExcluder;
 import core.Command;
 import core.CommandExecutable;
 import core.Request;
 import utils.API;
+import utils.BetaCanvas;
 import utils.Canvas;
 import utils.MessageSender;
-import utils.Stats;
 import utils.GeneralUtils;
 
-public class CommandStats extends CommandExecutable {
+public class CommandBetaStats extends CommandExecutable {
 
-	public CommandStats(Command command, boolean admin, String errorMessage) {
+	public CommandBetaStats(Command command, boolean admin, String errorMessage) {
 		super(command, admin, errorMessage);
 	}
 
@@ -38,13 +36,10 @@ public class CommandStats extends CommandExecutable {
 			uuid = API.getUUID(data);
 		}
 		
-		Canvas image = new Canvas(600, 400);
+		Canvas image = new Canvas(1000, 400);
 		
-		image.drawCustomBackground(GeneralUtils.getCustomBackground(uuid), 0, 0, 600, 400);
-		image.drawStringCenter(Stats.getSubTitle(uuid), 300, 70, 26, Color.white);
-		
-		GeneralUtils.createImage(image, data);
-		MessageSender.sendFile(command, "stats.png");
+		BetaCanvas.createBetaStatsImage(image, data, uuid);
+		MessageSender.sendFile(command, "betastats.png");
 		
 		String fileLocation = "leaderboard/" + uuid + "/data.json";
 		String localData = GeneralUtils.readJsonToString(fileLocation);
