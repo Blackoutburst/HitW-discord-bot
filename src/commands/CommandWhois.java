@@ -25,6 +25,7 @@ public class CommandWhois extends CommandExecutable {
 		
 		String data = Request.getPlayerStats(command.getArgs()[0]);
 		if (data == null) return (unknownPlayer(this, command.getArgs()[0]));
+		if(!GeneralUtils.isValidJSON(data)) return (apiDead(this));
 		if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
 		String discordId = GeneralUtils.getDiscordfromIGN(API.getName(data));
 		String discordNick = "N/A";
