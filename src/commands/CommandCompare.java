@@ -42,6 +42,7 @@ public class CommandCompare extends CommandExecutable {
 				player2 = Request.getPlayerStats(command.getArgs()[0]);
 				if (player2 == null) return (unknownPlayer(this, command.getArgs()[0]));
 				if (API.getPlayer(player2) == null) return (neverJoined(this, command.getArgs()[0]));
+				if(!GeneralUtils.isValidJSON(player2)) return (apiDead(this));
 			} else {
 				return (badUsage(this));
 			}
@@ -49,10 +50,12 @@ public class CommandCompare extends CommandExecutable {
 			player1 = Request.getPlayerStats(command.getArgs()[0]);
 			if (player1 == null) return (unknownPlayer(this, command.getArgs()[0]));
 			if (API.getPlayer(player1) == null) return (neverJoined(this, command.getArgs()[0]));
+			if(!GeneralUtils.isValidJSON(player1)) return (apiDead(this));
 			
 			player2 = Request.getPlayerStats(command.getArgs()[1]);
 			if (player2 == null) return (unknownPlayer(this, command.getArgs()[1]));
 			if (API.getPlayer(player2) == null) return (neverJoined(this, command.getArgs()[1]));
+			if(!GeneralUtils.isValidJSON(player2)) return (apiDead(this));
 		}
 		
 		Canvas image = new Canvas(600, 400);
