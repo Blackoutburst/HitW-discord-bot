@@ -108,4 +108,13 @@ public interface CommandError {
 		return (false);
 	}
 
+	/**
+	 * Custom error for API error
+	 * @return
+	 */
+	default boolean apiDead(CommandExecutable cmd) {
+		MessageSender.messageJSONMention(cmd.command, "api down");
+		return (false);
+	}
+
 }

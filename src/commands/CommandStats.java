@@ -28,12 +28,14 @@ public class CommandStats extends CommandExecutable {
 			if (GeneralUtils.isLinkedDiscord(command.getSender().getId())) {
 				data = Request.getPlayerStatsUUID(GeneralUtils.getUUIDfromDiscord(command.getSender().getId()));
 				uuid = GeneralUtils.getUUIDfromDiscord(command.getSender().getId());
+				if(!GeneralUtils.isValidJSON(data)) return (apiDead(this));
 			} else {
 				return (badUsage(this));
 			}
 		} else {
 			data = Request.getPlayerStats(command.getArgs()[0]);
 			if (data == null) return (unknownPlayer(this, command.getArgs()[0]));
+			if(!GeneralUtils.isValidJSON(data)) return (apiDead(this));
 			if (API.getPlayer(data) == null) return (neverJoined(this, command.getArgs()[0]));
 			uuid = API.getUUID(data);
 		}

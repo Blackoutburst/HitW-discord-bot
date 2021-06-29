@@ -48,7 +48,8 @@
 		"unlink": "User unlinked successfully",
 		"not linked": "Only linked user can do that! Ask any staff member to get linked",
 		"missing file": "You need to upload a file with the command!",
-		"alt account": "This account is an alt account"
+		"alt account": "This account is an alt account",
+		"api down": "The hypixel api is down right now and your request cannot be processed!"
 	},
 	"serverID": "709521394848890880",
 	"trackerChannel": "709548207717220352"
