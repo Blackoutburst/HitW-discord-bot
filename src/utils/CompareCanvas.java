@@ -53,7 +53,7 @@ public class CompareCanvas {
 		if (API.getName(player1).equals("Blackoutburst")) {
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
 		} else {
-			image.drawStringLeft(API.getName(player1), 130, 140, 46, Color.white);
+			image.drawStringLeft(API.getName(player1), 130, 140, 44, Color.white);
 		}
 		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
@@ -103,7 +103,7 @@ public class CompareCanvas {
 		if (API.getName(player1).equals("Blackoutburst")) {
 			image.drawImage("res/blackout.png", 550, 110, 320, 80);
 		} else {
-			image.drawStringRight(API.getName(player1), 870, 140, 46, Color.white);
+			image.drawStringRight(API.getName(player1), 870, 140, 44, Color.white);
 		}
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, Color.white);

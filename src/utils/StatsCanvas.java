@@ -30,7 +30,7 @@ public class StatsCanvas {
 		if (API.getName(data).equals("Blackoutburst")) {
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
 		} else {
-			image.drawStringLeft(API.getName(data), 130, 140, 46, Color.white);
+			image.drawStringLeft(API.getName(data), 130, 140, 44, Color.white);
 		}
 		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
@@ -41,7 +41,12 @@ public class StatsCanvas {
 		String discordNick = "N/A";
 		if (discordId != null && GeneralUtils.isInsideTheServer(discordId)) {
 			Member member = Bot.server.getMemberById(discordId);
-			discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+			
+			if (member.getEffectiveName().length() > 16) {
+				discordNick = member.getEffectiveName().substring(0, 16)+"[...]" + "#" + member.getUser().getDiscriminator(); 
+			} else {
+				discordNick = member.getEffectiveName() + "#" + member.getUser().getDiscriminator(); 
+			}
 			discordNick = discordNick.replaceAll("@", "@ ");
 		}
 		
