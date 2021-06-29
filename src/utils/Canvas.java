@@ -160,4 +160,46 @@ public class Canvas {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Return header color
+	 * @param score
+	 * @return
+	 */
+	public static String getHeader(int score) {
+		String file = "res/member.png";
+		
+		if (score >= 50) file = "res/50.png";
+		if (score >= 100) file = "res/100.png";
+		if (score >= 150) file = "res/150.png";
+		if (score >= 200) file = "res/200.png";
+		if (score >= 250) file = "res/250.png";
+		if (score >= 300) file = "res/300.png";
+		if (score >= 350) file = "res/350.png";
+		if (score >= 400) file = "res/400.png";
+		if (score >= 450) file = "res/450.png";
+		if (score >= 500) file = "res/500.png";
+		return file;
+	}
+	
+	/**
+	 * Return header color
+	 * @param score
+	 * @return
+	 */
+	public static String getHeaderRight(int score) {
+		String file = "res/memberR.png";
+		
+		if (score >= 50) file = "res/50R.png";
+		if (score >= 100) file = "res/100R.png";
+		if (score >= 150) file = "res/150R.png";
+		if (score >= 200) file = "res/200R.png";
+		if (score >= 250) file = "res/250R.png";
+		if (score >= 300) file = "res/300R.png";
+		if (score >= 350) file = "res/350R.png";
+		if (score >= 400) file = "res/400R.png";
+		if (score >= 450) file = "res/450R.png";
+		if (score >= 500) file = "res/500R.png";
+		return file;
+	}
 }

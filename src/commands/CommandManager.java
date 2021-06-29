@@ -21,9 +21,6 @@ public class CommandManager {
 			case "say": new CommandSay(command, ADMIN, "!say [message]").run(); break;
 			case "link": new CommandLink(command, ADMIN, "!link [discord ID] [IGN]").run(); break;
 			case "unlink": new CommandUnlink(command, ADMIN, "!unlink [discordID/IGN]").run(); break;
-			case "setbackground": case "setbg": new CommandSetBackground(command, EVERYONE, "!setbackground (file required)").run(); break;
-			case "resetbackground": case "rbg": new CommandResetBackground(command, EVERYONE, "!resetbackground").run(); break;
-			case "removebackground": new CommandRemoveBackground(command, ADMIN, "!removebackground [IGN]").run(); break;
 			case "leaderboard": case "lead": case "lb": new CommandLeaderboard(command, EVERYONE, "!leaderboard [W/R/Q/F/T] [page] [\"discord\"]").run(); break;
 			case "forcepb": new CommandForcePB(command, ADMIN, "!forcePB [IGN] [Q/F]").run(); break;
 			case "forcetracker": new CommandForceTracker(command, ADMIN, "!forcetracker").run(); break;
@@ -34,7 +31,6 @@ public class CommandManager {
 			case "poll": new CommandPoll(command, ADMIN, "!poll [message]").run(); break;
 			case "search": new CommandSearch(command, EVERYONE, "!search [W/R/Q/F/T] [position]").run(); break;
 			case "whois": case "who": new CommandWhois(command, EVERYONE, "!whois [IGN]").run(); break;
-			case "betastats": case "betastat": case "bs": new CommandBetaStats(command, EVERYONE, "!betastats [player]").run(); break;
 			default : return;
 		}
 	}
