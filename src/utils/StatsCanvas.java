@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.Member;
 public class StatsCanvas {
 
 	/**
-	 * Create beta stats image
+	 * Create stats image
 	 * @param image
 	 * @param data
 	 */

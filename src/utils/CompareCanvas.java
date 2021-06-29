@@ -16,7 +16,7 @@ public class CompareCanvas {
 	}
 	
 	/**
-	 * Create beta stats image
+	 * Create compare image
 	 * @param image
 	 * @param data
 	 */
@@ -138,7 +138,7 @@ public class CompareCanvas {
 	private static Color stringColor(String p1, String p2, Type t) {
 		Color color = Color.white;
 		
-		color = diff(p1, p2, t).charAt(0) == '-' ? new Color(255, 140, 140): new Color(126, 255, 112);
+		color = diff(p1, p2, t).charAt(0) == '-' ? new Color(255, 80, 80): new Color(80, 255, 80);
 		if (diff(p1, p2, t).charAt(0) == '0') color = Color.white;
 		return (color);
 	}
