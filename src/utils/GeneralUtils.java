@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
-import org.json.JSONException;
 
 import comparators.PlayerComparatorF;
 import comparators.PlayerComparatorQ;
@@ -132,10 +131,10 @@ public class GeneralUtils {
 	 */
 	public static boolean isValidJSON(String json) {
 		try {
-			JSONObject obj = new JSONObject(json);
-			return true;
+			new JSONObject(json);
+			return (true);
 		} catch (Exception e) {
-			return false;
+			return (false);
 		}
 	}
 
