@@ -31,9 +31,11 @@ public class CommandLeaderboard extends CommandExecutable {
 		List<LeaderboardPlayer> lead = GeneralUtils.generatePlayerList(index);
 		Leaderboard lb = new Leaderboard(lead, type);
 		lb.sort();
-
-		if (page * 10 > lb.getPlayers().size() || (page + 10) * 10 > lb.getPlayers().size()) {
-			return(largeValue(this));
+		
+		int pass = 0;
+		for (int i = (10 * page); i < (10 * page) + 10; i++) {
+			if (i > lb.getPlayers().size() && pass == 0) return(largeValue(this));
+			pass++;
 		}
 
 		Canvas image = new Canvas(600, 400);
@@ -58,7 +60,7 @@ public class CommandLeaderboard extends CommandExecutable {
 		image.drawBackground();
 		image.drawStringCenter(lb.getCanvasName(), 300, 40, 32, Color.white);
 		for (int i = (10 * page); i < (10 * page) + 10; i++) {
-			if (i > lb.getPlayers().size()) break;
+			if (i >= lb.getPlayers().size()) break;
 			LeaderboardPlayer player = lb.getPlayers().get(i);
 			String str = "#" + (i + 1) + " " + player.name + " - " + formatter.format(lb.getPlayerStat(i));
 			image.drawStringCenter(str, 300, 75 + (35 * y), 26, Color.white);
