@@ -44,6 +44,7 @@ public class GeneralUtils {
 	
 		for (LeaderboardPlayer player : lead) {
 			Member member = Bot.server.getMemberById(player.discord);
+			if (member == null) continue;
 			
 			new RolesManager().cleanLifeTimeRole(member, lb, player);
 
