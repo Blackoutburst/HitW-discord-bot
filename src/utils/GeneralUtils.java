@@ -30,8 +30,8 @@ import core.RolesManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class GeneralUtils {
 
@@ -59,9 +59,9 @@ public class GeneralUtils {
 	 * Send a typing event
 	 * @param event
 	 */
-	public static void startTyping(MessageReceivedEvent event) {
+	public static void startTyping(MessageChannel chan) {
 		try {
-			event.getMessage().getChannel().sendTyping().complete();
+			chan.sendTyping().complete();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -222,7 +222,8 @@ public class GeneralUtils {
 	 */
 	public static String readJsonToString(String file) {
 		try {
-			return new String(Files.readAllBytes(Paths.get(file)));
+			if (new File(file).exists())
+				return new String(Files.readAllBytes(Paths.get(file)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -321,6 +322,8 @@ public class GeneralUtils {
 	 * @param folder
 	 */
 	public static void updateFile(String data, String localData, String uuid, String folder) {
+		if (localData == null) return;
+		
 		JSONObject obj = new JSONObject(localData)
 			.put("wins", API.getWinsToInt(data))
 			.put("walls", API.getWallsToInt(data))

@@ -39,7 +39,7 @@ public class CommandPing extends CommandExecutable {
 				lbThread+"**\nTracker forced: "+
 				"**"+trackerForced+"**";
 		
-		command.getEvent().getChannel().sendMessage("Pong!").queue(response -> {
+		command.getChannel().sendMessage("Pong!").queue(response -> {
 			response.editMessageFormat(formatString, System.currentTimeMillis() - time, mbUsed, mbTotal, mbMax, uptime).queue();
 		});
 		return (true);
