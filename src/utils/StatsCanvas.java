@@ -27,11 +27,12 @@ public class StatsCanvas {
 		image.drawImage("res/qf.png", 520, 345, 30, 30);
 		
 		
-		if (API.getName(data).equals("Blackoutburst")) {
+		if (API.getName(data).equals("Blackoutburst"))
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
-		} else {
+		else if (API.getName(data).equals("VN3M"))
+			image.drawImage("res/venom.png", 130, 110, 300, 85);
+		else
 			image.drawStringLeft(API.getName(data), 130, 140, 44, Color.white);
-		}
 		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		

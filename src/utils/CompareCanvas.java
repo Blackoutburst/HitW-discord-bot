@@ -50,11 +50,12 @@ public class CompareCanvas {
 		image.drawImage("res/qf.png", 20, 460, 30, 30);
 		
 		
-		if (API.getName(player1).equals("Blackoutburst")) {
+		if (API.getName(player1).equals("Blackoutburst"))
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
-		} else {
+		else if (API.getName(player1).equals("VN3M"))
+			image.drawImage("res/venom.png", 130, 110, 300, 85);
+		else
 			image.drawStringLeft(API.getName(player1), 130, 140, 44, Color.white);
-		}
 		
 		image.drawStringLeft(Stats.getSubTitle(uuid), 130, 180, 36, Color.white);
 		
@@ -99,12 +100,12 @@ public class CompareCanvas {
 		image.drawImage("res/f.png", 950, 400, 30, 30);
 		image.drawImage("res/qf.png", 950, 460, 30, 30);
 		
-		
-		if (API.getName(player1).equals("Blackoutburst")) {
+		if (API.getName(player1).equals("Blackoutburst"))
 			image.drawImage("res/blackout.png", 550, 110, 320, 80);
-		} else {
-			image.drawStringRight(API.getName(player1), 870, 140, 44, Color.white);
-		}
+		else if (API.getName(player1).equals("VN3M"))
+			image.drawImage("res/venom.png", 570, 110, 300, 85);
+		else
+			image.drawStringLeft(API.getName(player1), 870, 140, 44, Color.white);
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, Color.white);
 		
