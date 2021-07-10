@@ -50,9 +50,9 @@ public class CompareCanvas {
 		image.drawImage("res/qf.png", 20, 460, 30, 30);
 		
 		
-		if (API.getName(player1).equals("Blackoutburst"))
+		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImage("res/blackout.png", 130, 110, 320, 80);
-		else if (API.getName(player1).equals("VN3M"))
+		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImage("res/venom.png", 130, 110, 300, 85);
 		else
 			image.drawStringLeft(API.getName(player1), 130, 140, 44, Color.white);
@@ -100,12 +100,12 @@ public class CompareCanvas {
 		image.drawImage("res/f.png", 950, 400, 30, 30);
 		image.drawImage("res/qf.png", 950, 460, 30, 30);
 		
-		if (API.getName(player1).equals("Blackoutburst"))
+		if (API.getUUID(player1).equals("b8ef1c7615e04b958d474ca133561f5a"))
 			image.drawImage("res/blackout.png", 550, 110, 320, 80);
-		else if (API.getName(player1).equals("VN3M"))
+		else if (API.getUUID(player1).equals("92a5199614ac4bd181d1f3c951fb719f"))
 			image.drawImage("res/venom.png", 570, 110, 300, 85);
 		else
-			image.drawStringLeft(API.getName(player1), 870, 140, 44, Color.white);
+			image.drawStringRight(API.getName(player1), 870, 140, 44, Color.white);
 		
 		image.drawStringRight(Stats.getSubTitle(uuid), 870, 180, 36, Color.white);
 		
