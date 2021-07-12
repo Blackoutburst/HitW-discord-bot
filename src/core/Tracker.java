@@ -59,8 +59,6 @@ public class Tracker {
 			if (data == null) continue;
 			if (API.getPlayer(data) == null) continue;
 
-			GeneralUtils.updateFile(data, localData, uuid, "linked player");
-			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
 			
 			oldQ = Stats.getQualificationToInt(localData);
 			newQ = API.getQualificationToInt(data);
@@ -70,6 +68,9 @@ public class Tracker {
 			if (newQ > oldQ) MessageSender.pbMessage(data, discordid, uuid, 'q');
 			if (newF > oldF) MessageSender.pbMessage(data, discordid, uuid, 'f');
 			
+			GeneralUtils.updateFile(data, localData, uuid, "linked player");
+			GeneralUtils.updateFile(data, localData, uuid, "leaderboard");
+			GeneralUtils.updateLifeTimeRoles();
 			
 			delay(450);
 		}
